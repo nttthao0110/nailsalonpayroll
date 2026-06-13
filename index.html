@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NailSalonPayroll.com — 1099 to W2 Made Simple | Hướng Dẫn Bảng Lương Tiệm Nail</title>
+<meta name="description" content="Free payroll calculator and step-by-step guide for nail salon owners switching from 1099 to W2. Built by a CPA. Available in English and Vietnamese.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red:      #8B1A2F;
+  --red-dk:   #6B1224;
+  --red-lt:   #F9EAED;
+  --ivory:    #FAF7F2;
+  --gold:     #C9893A;
+  --gold-lt:  #FDF3E7;
+  --gold-dk:  #A06A20;
+  --charcoal: #1A1A2E;
+  --slate:    #3D4462;
+  --gray:     #6B7280;
+  --gray-lt:  #F4F5F7;
+  --border:   #E8E2D9;
+  --white:    #FFFFFF;
+  --green:    #1E6B4A;
+  --green-lt: #E8F5EE;
+  --shadow-sm: 0 1px 4px rgba(26,26,46,.06);
+  --shadow:    0 4px 24px rgba(26,26,46,.10);
+  --shadow-lg: 0 8px 48px rgba(26,26,46,.14);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--ivory);
+  color: var(--charcoal);
+  line-height: 1.65;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+/* ── LANG BAR ── */
+.lang-bar {
+  background: var(--charcoal);
+  padding: 9px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px;
+}
+.lang-bar-left { color: #8892b0; font-size: 12px; font-weight: 500; letter-spacing: .04em; }
+.lang-bar-left strong { color: #ccd6f6; }
+.lang-btns { display: flex; gap: 6px; }
+.lang-btn {
+  background: transparent; border: 1.5px solid #3d4462;
+  color: #8892b0; padding: 3px 14px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit;
+  transition: all .2s;
+}
+.lang-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
+.lang-btn:hover:not(.active) { border-color: #8892b0; color: #ccd6f6; }
+
+/* ── NAV ── */
+nav {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 32px; display: flex; align-items: center; justify-content: space-between;
+  height: 64px; position: sticky; top: 0; z-index: 200;
+  box-shadow: var(--shadow-sm);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none;
+}
+.nav-logo-icon {
+  width: 36px; height: 36px; background: var(--red);
+  border-radius: 8px; display: flex; align-items: center;
+  justify-content: center; font-size: 18px;
+}
+.nav-logo-text { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--charcoal); }
+.nav-logo-text span { color: var(--red); }
+.nav-links { display: flex; align-items: center; gap: 8px; }
+.nav-link {
+  padding: 7px 14px; border-radius: 6px; font-size: 14px; font-weight: 500;
+  color: var(--slate); text-decoration: none; transition: all .2s; cursor: pointer;
+  background: none; border: none; font-family: inherit;
+}
+.nav-link:hover { background: var(--red-lt); color: var(--red); }
+.nav-cta {
+  background: var(--red); color: #fff; padding: 8px 18px; border-radius: 8px;
+  font-size: 14px; font-weight: 600; text-decoration: none; transition: background .2s;
+  border: none; cursor: pointer; font-family: inherit;
+}
+.nav-cta:hover { background: var(--red-dk); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--charcoal);
+  padding: 80px 32px 0;
+  position: relative; overflow: hidden;
+}
+.hero-bg-text {
+  position: absolute; top: -20px; right: -40px;
+  font-family: 'Playfair Display', serif;
+  font-size: 220px; font-weight: 800; color: rgba(255,255,255,.02);
+  pointer-events: none; line-height: 1; user-select: none;
+}
+.hero-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+}
+.hero-left { padding-bottom: 64px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(201,137,58,.15); border: 1px solid rgba(201,137,58,.3);
+  color: var(--gold); padding: 5px 14px; border-radius: 20px;
+  font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800; color: #fff;
+  line-height: 1.15; margin-bottom: 20px;
+}
+.hero h1 em { color: var(--gold); font-style: normal; }
+.hero-sub {
+  color: #8892b0; font-size: 17px; line-height: 1.7;
+  margin-bottom: 32px; max-width: 440px;
+}
+.hero-trust { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 36px; }
+.trust-pill {
+  display: flex; align-items: center; gap: 7px;
+  color: #a8b2cc; font-size: 13px; font-weight: 500;
+}
+.trust-pill .tp-icon { font-size: 16px; }
+.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-btn-primary {
+  background: var(--red); color: #fff;
+  padding: 14px 28px; border-radius: 10px;
+  font-size: 15px; font-weight: 700;
+  text-decoration: none; transition: all .2s;
+  display: inline-flex; align-items: center; gap: 8px;
+  border: none; cursor: pointer; font-family: inherit;
+}
+.hero-btn-primary:hover { background: var(--red-dk); transform: translateY(-1px); }
+.hero-btn-secondary {
+  background: transparent; color: #ccd6f6;
+  padding: 14px 28px; border-radius: 10px;
+  font-size: 15px; font-weight: 600;
+  border: 1.5px solid #3d4462; cursor: pointer;
+  font-family: inherit; transition: all .2s;
+}
+.hero-btn-secondary:hover { border-color: #8892b0; color: #fff; }
+
+/* HERO CALCULATOR CARD */
+.hero-right { position: relative; }
+.hero-calc-card {
+  background: var(--white); border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transform: translateY(32px);
+}
+.hcc-header {
+  background: var(--red); padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.hcc-title { color: #fff; font-weight: 700; font-size: 15px; }
+.hcc-live { background: rgba(255,255,255,.2); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: .06em; }
+.hcc-body { padding: 20px; }
+.hcc-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.hcc-field label { font-size: 11px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: .05em; display: block; margin-bottom: 5px; }
+.hcc-input-wrap { position: relative; }
+.hcc-input-wrap .sym { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--gray); font-size: 14px; pointer-events: none; }
+.hcc-input-wrap .sym-r { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--gray); font-size: 14px; pointer-events: none; }
+.hcc-input {
+  width: 100%; padding: 9px 10px 9px 24px;
+  border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 15px; font-family: 'DM Mono', monospace; color: var(--charcoal);
+  background: var(--ivory); transition: border .2s;
+  -moz-appearance: textfield;
+}
+.hcc-input.no-prefix { padding-left: 10px; }
+.hcc-input::-webkit-outer-spin-button, .hcc-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.hcc-input:focus { outline: none; border-color: var(--red); background: #fff; }
+.hcc-results {
+  background: var(--charcoal); border-radius: 10px;
+  padding: 14px; margin-top: 4px;
+}
+.hcc-res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.hcc-res-box { background: rgba(255,255,255,.06); border-radius: 8px; padding: 10px 12px; }
+.hcc-res-box .rb-label { font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #8892b0; margin-bottom: 3px; }
+.hcc-res-box .rb-val { font-family: 'DM Mono', monospace; font-size: 20px; font-weight: 500; color: #fff; }
+.hcc-res-box.gold .rb-val { color: var(--gold); }
+.hcc-res-box.green .rb-val { color: #4ade80; }
+.hcc-note { font-size: 11px; color: #8892b0; text-align: center; margin-top: 6px; }
+.hcc-tx-badge {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(30,107,74,.2); border: 1px solid rgba(30,107,74,.3);
+  border-radius: 6px; padding: 7px 10px; margin-top: 10px;
+  font-size: 12px; color: #4ade80; font-weight: 500;
+}
+
+/* ── TICKER STRIP ── */
+.ticker-strip {
+  background: var(--red); padding: 12px 32px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 32px; flex-wrap: wrap;
+}
+.ticker-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,.85); font-size: 13px; font-weight: 500; }
+.ticker-item strong { color: #fff; }
+.ticker-dot { width: 4px; height: 4px; background: rgba(255,255,255,.3); border-radius: 50%; }
+
+/* ── SECTIONS ── */
+.section { padding: 80px 32px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-label { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 3vw, 42px); font-weight: 800; color: var(--charcoal); line-height: 1.2; margin-bottom: 16px; }
+.section-sub { font-size: 17px; color: var(--gray); max-width: 540px; line-height: 1.7; }
+.section-header { margin-bottom: 52px; }
+
+/* ── PROBLEM SECTION ── */
+.problem-section { background: var(--white); }
+.problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.problem-card {
+  background: var(--ivory); border: 1px solid var(--border);
+  border-radius: 14px; padding: 28px 24px;
+  border-top: 4px solid var(--red);
+}
+.prob-icon { font-size: 28px; margin-bottom: 14px; }
+.prob-title { font-size: 17px; font-weight: 700; color: var(--charcoal); margin-bottom: 8px; }
+.prob-body { font-size: 14px; color: var(--gray); line-height: 1.65; }
+.prob-stat { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 500; color: var(--red); margin-top: 14px; }
+.prob-stat-label { font-size: 12px; color: var(--gray); margin-top: 2px; }
+
+/* ── HOW IT WORKS ── */
+.steps-section { background: var(--ivory); }
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
+.steps-grid::before {
+  content: '';
+  position: absolute; top: 28px; left: 15%; right: 15%;
+  height: 2px; background: var(--border); z-index: 0;
+}
+.step-card { position: relative; z-index: 1; text-align: center; }
+.step-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--white); border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800;
+  color: var(--red); margin: 0 auto 16px;
+  box-shadow: var(--shadow-sm);
+}
+.step-card.active .step-num { background: var(--red); color: #fff; border-color: var(--red); }
+.step-title { font-size: 15px; font-weight: 700; color: var(--charcoal); margin-bottom: 6px; }
+.step-body { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+/* ── TOOLS SECTION ── */
+.tools-section { background: var(--white); }
+.tools-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.tool-card {
+  background: var(--ivory); border: 1.5px solid var(--border);
+  border-radius: 14px; padding: 28px 24px;
+  transition: all .25s; cursor: pointer; text-decoration: none; display: block;
+}
+.tool-card:hover { border-color: var(--red); box-shadow: var(--shadow); transform: translateY(-3px); }
+.tool-card-icon { font-size: 32px; margin-bottom: 14px; }
+.tool-card-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--gold); margin-bottom: 6px; }
+.tool-card-title { font-size: 18px; font-weight: 700; color: var(--charcoal); margin-bottom: 8px; }
+.tool-card-desc { font-size: 14px; color: var(--gray); line-height: 1.6; }
+.tool-card-cta { display: inline-flex; align-items: center; gap: 6px; color: var(--red); font-size: 13px; font-weight: 700; margin-top: 14px; }
+
+/* ── BILINGUAL STRIP ── */
+.bilingual-strip {
+  background: linear-gradient(135deg, var(--charcoal) 0%, #2d1f3d 100%);
+  padding: 64px 32px;
+}
+.bilingual-inner {
+  max-width: 900px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+}
+.bi-left .bi-title {
+  font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 800;
+  color: #fff; line-height: 1.2; margin-bottom: 16px;
+}
+.bi-left .bi-title em { color: var(--gold); font-style: normal; }
+.bi-left p { color: #8892b0; font-size: 15px; line-height: 1.7; }
+.bi-right { display: flex; flex-direction: column; gap: 14px; }
+.bi-quote {
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px; padding: 16px 18px;
+}
+.bi-quote-text { font-size: 15px; color: #ccd6f6; line-height: 1.6; margin-bottom: 8px; }
+.bi-quote-vn { font-size: 13px; color: #8892b0; font-style: italic; }
+.bi-quote-flag { font-size: 20px; margin-bottom: 8px; }
+
+/* ── PRICING ── */
+.pricing-section { background: var(--ivory); }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.price-card {
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: 16px; padding: 32px 28px;
+  position: relative; overflow: hidden;
+}
+.price-card.featured {
+  background: var(--charcoal); border-color: var(--charcoal);
+  transform: scale(1.03);
+  box-shadow: var(--shadow-lg);
+}
+.price-badge {
+  position: absolute; top: 16px; right: -28px;
+  background: var(--gold); color: #fff; font-size: 11px; font-weight: 700;
+  padding: 4px 36px; letter-spacing: .06em; text-transform: uppercase;
+  transform: rotate(35deg); transform-origin: center;
+}
+.price-tier { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--red); margin-bottom: 10px; }
+.price-card.featured .price-tier { color: var(--gold); }
+.price-name { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 800; color: var(--charcoal); margin-bottom: 6px; }
+.price-card.featured .price-name { color: #fff; }
+.price-amount { font-family: 'DM Mono', monospace; font-size: 40px; font-weight: 500; color: var(--red); margin: 10px 0; }
+.price-card.featured .price-amount { color: var(--gold); }
+.price-desc { font-size: 14px; color: var(--gray); margin-bottom: 20px; }
+.price-card.featured .price-desc { color: #8892b0; }
+.price-features { list-style: none; margin-bottom: 24px; }
+.price-features li { font-size: 14px; color: var(--gray); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 8px; }
+.price-card.featured .price-features li { color: #a8b2cc; border-color: rgba(255,255,255,.08); }
+.price-features li:last-child { border-bottom: none; }
+.price-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.price-card.featured .price-features li::before { color: var(--gold); }
+.price-btn {
+  width: 100%; padding: 13px; border-radius: 10px; font-size: 15px; font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: all .2s; border: 2px solid var(--red);
+  color: var(--red); background: transparent;
+}
+.price-btn:hover { background: var(--red-lt); }
+.price-card.featured .price-btn { background: var(--red); color: #fff; border-color: var(--red); }
+.price-card.featured .price-btn:hover { background: var(--red-dk); }
+
+/* ── FAQ ── */
+.faq-section { background: var(--white); }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
+.faq-item {
+  border-bottom: 1px solid var(--border); padding: 20px 0; cursor: pointer;
+}
+.faq-item:last-child { border-bottom: none; }
+.faq-q {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 12px;
+}
+.faq-q-text { font-size: 15px; font-weight: 600; color: var(--charcoal); line-height: 1.4; }
+.faq-toggle { color: var(--red); font-size: 20px; flex-shrink: 0; transition: transform .2s; font-weight: 300; line-height: 1; margin-top: 2px; }
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+.faq-a { display: none; font-size: 14px; color: var(--gray); line-height: 1.7; margin-top: 10px; }
+.faq-a-vn { display: none; font-size: 13px; color: #9ca3af; margin-top: 6px; font-style: italic; }
+.faq-item.open .faq-a { display: block; }
+
+/* ── EMAIL CAPTURE ── */
+.email-section {
+  background: linear-gradient(135deg, var(--red) 0%, var(--red-dk) 100%);
+  padding: 80px 32px; text-align: center;
+}
+.email-section .section-title { color: #fff; margin-bottom: 12px; }
+.email-section .section-sub { color: rgba(255,255,255,.75); margin: 0 auto 36px; }
+.email-form { display: flex; gap: 10px; max-width: 480px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+.email-input {
+  flex: 1; min-width: 240px; padding: 14px 18px;
+  border: none; border-radius: 10px;
+  font-size: 15px; font-family: inherit; color: var(--charcoal);
+  background: #fff;
+}
+.email-input:focus { outline: 2px solid var(--gold); }
+.email-btn {
+  padding: 14px 24px; background: var(--gold); color: #fff;
+  border: none; border-radius: 10px; font-size: 15px; font-weight: 700;
+  cursor: pointer; font-family: inherit; transition: background .2s;
+  white-space: nowrap;
+}
+.email-btn:hover { background: var(--gold-dk); }
+.email-note { color: rgba(255,255,255,.5); font-size: 12px; margin-top: 12px; }
+.email-what { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+.email-what-item { display: flex; align-items: center; gap: 7px; color: rgba(255,255,255,.85); font-size: 14px; font-weight: 500; }
+.email-success { display: none; background: rgba(255,255,255,.15); border-radius: 12px; padding: 20px; margin-top: 16px; color: #fff; font-weight: 600; font-size: 16px; }
+
+/* ── ABOUT CPA ── */
+.about-section { background: var(--ivory); }
+.about-inner { max-width: 800px; margin: 0 auto; display: grid; grid-template-columns: auto 1fr; gap: 40px; align-items: start; }
+.about-avatar {
+  width: 100px; height: 100px; border-radius: 50%;
+  background: var(--charcoal); display: flex; align-items: center;
+  justify-content: center; font-size: 48px; flex-shrink: 0;
+  border: 4px solid var(--white); box-shadow: var(--shadow);
+}
+.about-name { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 800; color: var(--charcoal); margin-bottom: 4px; }
+.about-role { font-size: 14px; color: var(--red); font-weight: 600; margin-bottom: 16px; }
+.about-bio { font-size: 15px; color: var(--gray); line-height: 1.75; margin-bottom: 20px; }
+.about-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.about-badge {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 20px; padding: 5px 14px;
+  font-size: 13px; font-weight: 600; color: var(--charcoal);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--charcoal); padding: 48px 32px 24px;
+  color: #8892b0;
+}
+.footer-inner { max-width: 1100px; margin: 0 auto; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-brand .fb-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+.footer-brand .fb-desc { font-size: 14px; color: #8892b0; line-height: 1.6; max-width: 280px; }
+.footer-col h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: #ccd6f6; margin-bottom: 14px; }
+.footer-col a { display: block; color: #8892b0; font-size: 14px; text-decoration: none; margin-bottom: 8px; transition: color .2s; }
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom { border-top: 1px solid #2d3555; padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.footer-bottom p { font-size: 13px; }
+.footer-disclaimer { font-size: 12px; color: #4a5270; max-width: 600px; line-height: 1.5; }
+
+/* ── LANG TOGGLE ── */
+.en-only { display: block; }
+.vn-only { display: none; }
+body.vn .en-only { display: none; }
+body.vn .vn-only { display: block; }
+.en-inline { display: inline; }
+.vn-inline { display: none; }
+body.vn .en-inline { display: none; }
+body.vn .vn-inline { display: inline; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 0; }
+  .hero-right { display: none; }
+  .hero { padding-bottom: 64px; }
+  .problem-grid, .tools-grid, .pricing-grid { grid-template-columns: 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .steps-grid::before { display: none; }
+  .faq-grid { grid-template-columns: 1fr; }
+  .bilingual-inner { grid-template-columns: 1fr; }
+  .about-inner { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; }
+  .price-card.featured { transform: none; }
+}
+@media (max-width: 600px) {
+  nav { padding: 0 16px; }
+  .nav-links .nav-link { display: none; }
+  .section { padding: 56px 16px; }
+  .hero { padding: 56px 16px 56px; }
+  .steps-grid { grid-template-columns: 1fr; }
+  .lang-bar { padding: 9px 16px; }
+  .lang-bar-left { display: none; }
+  .ticker-strip { gap: 16px; padding: 12px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <div class="lang-bar-left en-only">Built by <strong>Thao Nguyen, CPA</strong> — Nail Salon Payroll Specialist</div>
+  <div class="lang-bar-left vn-only">Tạo bởi <strong>Thao Nguyen, CPA</strong> — Chuyên Gia Bảng Lương Tiệm Nail</div>
+  <div class="lang-btns">
+    <button class="lang-btn active" onclick="setLang('en')">English</button>
+    <button class="lang-btn" onclick="setLang('vn')">Tiếng Việt</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon">💅</div>
+    <div class="nav-logo-text">NailSalon<span>Payroll</span>.com</div>
+  </a>
+  <div class="nav-links">
+    <button class="nav-link en-only" onclick="scrollTo('tools')">Free Tools</button>
+    <button class="nav-link vn-only" onclick="scrollTo('tools')">Công Cụ Miễn Phí</button>
+    <button class="nav-link en-only" onclick="scrollTo('pricing')">Pricing</button>
+    <button class="nav-link vn-only" onclick="scrollTo('pricing')">Giá Cả</button>
+    <button class="nav-link en-only" onclick="scrollTo('faq')">FAQ</button>
+    <button class="nav-link vn-only" onclick="scrollTo('faq')">Câu Hỏi</button>
+    <a class="nav-cta en-only" href="#email-section">Get Free Checklist</a>
+    <a class="nav-cta vn-only" href="#email-section">Nhận Danh Sách Miễn Phí</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">W2</div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span>⚠️</span>
+        <span class="en-only">The IRS Is Watching Nail Salons Right Now</span>
+        <span class="vn-only">IRS Đang Kiểm Tra Tiệm Nail Ngay Bây Giờ</span>
+      </div>
+      <h1 class="en-only">Stop Risking <em>Everything</em> on 1099. Switch to W2 the Right Way.</h1>
+      <h1 class="vn-only">Ngừng Mạo Hiểm với 1099. Chuyển Sang <em>W2 Đúng Cách.</em></h1>
+      <p class="hero-sub en-only">Free calculator, risk check, and step-by-step checklist — built specifically for Vietnamese nail salon owners. No confusing tax jargon.</p>
+      <p class="hero-sub vn-only">Công cụ tính toán miễn phí, kiểm tra rủi ro và danh sách từng bước — được xây dựng đặc biệt cho chủ tiệm nail người Việt. Không có biệt ngữ thuế phức tạp.</p>
+      <div class="hero-trust">
+        <div class="trust-pill"><span class="tp-icon">✅</span><span class="en-only">CPA-verified</span><span class="vn-only">Được CPA xác minh</span></div>
+        <div class="trust-pill"><span class="tp-icon">🇺🇸🇻🇳</span><span class="en-only">English + Vietnamese</span><span class="vn-only">Tiếng Anh + Việt</span></div>
+        <div class="trust-pill"><span class="tp-icon">⭐</span><span class="en-only">Texas-specific</span><span class="vn-only">Dành cho Texas</span></div>
+        <div class="trust-pill"><span class="tp-icon">🆓</span><span class="en-only">100% free tools</span><span class="vn-only">Công cụ miễn phí 100%</span></div>
+      </div>
+      <div class="hero-btns">
+        <button class="hero-btn-primary en-only" onclick="scrollTo('tools')">Use the Free Calculator →</button>
+        <button class="hero-btn-primary vn-only" onclick="scrollTo('tools')">Dùng Công Cụ Miễn Phí →</button>
+        <button class="hero-btn-secondary en-only" onclick="scrollTo('faq')">Is My Salon at Risk?</button>
+        <button class="hero-btn-secondary vn-only" onclick="scrollTo('faq')">Tiệm Tôi Có Rủi Ro Không?</button>
+      </div>
+    </div>
+
+    <!-- LIVE MINI CALCULATOR -->
+    <div class="hero-right">
+      <div class="hero-calc-card">
+        <div class="hcc-header">
+          <span class="hcc-title en-only">💅 Live Payroll Calculator</span>
+          <span class="hcc-title vn-only">💅 Tính Toán Lương Trực Tiếp</span>
+          <span class="hcc-live">LIVE</span>
+        </div>
+        <div class="hcc-body">
+          <div class="hcc-row">
+            <div class="hcc-field">
+              <label class="en-only">Service Price</label>
+              <label class="vn-only">Giá Dịch Vụ</label>
+              <div class="hcc-input-wrap">
+                <span class="sym">$</span>
+                <input class="hcc-input" type="number" id="h-price" value="50" oninput="liveCalc()">
+              </div>
+            </div>
+            <div class="hcc-field">
+              <label class="en-only">Clients/Week</label>
+              <label class="vn-only">Khách/Tuần</label>
+              <div class="hcc-input-wrap">
+                <input class="hcc-input no-prefix" type="number" id="h-clients" value="30" oninput="liveCalc()">
+              </div>
+            </div>
+          </div>
+          <div class="hcc-row">
+            <div class="hcc-field">
+              <label class="en-only">Commission %</label>
+              <label class="vn-only">Hoa Hồng %</label>
+              <div class="hcc-input-wrap">
+                <input class="hcc-input no-prefix" type="number" id="h-comm" value="60" oninput="liveCalc()">
+                <span class="sym-r">%</span>
+              </div>
+            </div>
+            <div class="hcc-field">
+              <label class="en-only"># of Technicians</label>
+              <label class="vn-only">Số Thợ</label>
+              <div class="hcc-input-wrap">
+                <input class="hcc-input no-prefix" type="number" id="h-techs" value="3" oninput="liveCalc()">
+              </div>
+            </div>
+          </div>
+          <div class="hcc-results">
+            <div class="hcc-res-grid">
+              <div class="hcc-res-box">
+                <div class="rb-label en-only">Gross/Tech/Wk</div>
+                <div class="rb-label vn-only">Lương Gộp/Thợ/Tuần</div>
+                <div class="rb-val" id="h-gross">$900</div>
+              </div>
+              <div class="hcc-res-box green">
+                <div class="rb-label en-only">Tech Take-Home</div>
+                <div class="rb-label vn-only">Thợ Nhận Về</div>
+                <div class="rb-val" id="h-net">$762</div>
+              </div>
+              <div class="hcc-res-box gold">
+                <div class="rb-label en-only">Employer FICA</div>
+                <div class="rb-label vn-only">FICA Chủ Đóng</div>
+                <div class="rb-val" id="h-fica">$69</div>
+              </div>
+              <div class="hcc-res-box">
+                <div class="rb-label en-only">Monthly (all techs)</div>
+                <div class="rb-label vn-only">Hàng Tháng (tất cả)</div>
+                <div class="rb-val" id="h-monthly">$11,604</div>
+              </div>
+            </div>
+            <div class="hcc-tx-badge">
+              <span>⭐</span>
+              <span class="en-only">Texas: No state income tax — simpler payroll!</span>
+              <span class="vn-only">Texas: Không thuế tiểu bang — bảng lương đơn giản hơn!</span>
+            </div>
+            <div class="hcc-note en-only">Estimates only. Consult a CPA for your situation.</div>
+            <div class="hcc-note vn-only">Chỉ là ước tính. Tham khảo CPA cho tình huống của bạn.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-strip">
+  <div class="ticker-item"><span>🚨</span><span class="en-only">IRS penalties for misclassification: <strong>up to $50,000+ per worker</strong></span><span class="vn-only">Phạt IRS vì phân loại sai: <strong>tới $50,000+ mỗi thợ</strong></span></div>
+  <div class="ticker-dot"></div>
+  <div class="ticker-item"><span>📋</span><span class="en-only">Texas has <strong>no state income tax</strong> — switching is easier here</span><span class="vn-only">Texas <strong>không có thuế tiểu bang</strong> — chuyển đổi dễ hơn ở đây</span></div>
+  <div class="ticker-dot"></div>
+  <div class="ticker-item"><span>✅</span><span class="en-only">IRS Voluntary Program <strong>reduces penalties significantly</strong></span><span class="vn-only">Chương Trình Tự Nguyện IRS <strong>giảm phạt đáng kể</strong></span></div>
+</div>
+
+<!-- PROBLEM SECTION -->
+<section class="section problem-section" id="problem">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label en-only">Why This Matters Now</div>
+      <div class="section-label vn-only">Tại Sao Điều Này Quan Trọng Ngay Bây Giờ</div>
+      <h2 class="section-title en-only">The 1099 risk nail salons can't ignore anymore</h2>
+      <h2 class="section-title vn-only">Rủi ro 1099 mà tiệm nail không thể bỏ qua nữa</h2>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="prob-icon">🔍</div>
+        <div class="prob-title en-only">IRS Audits Are Up</div>
+        <div class="prob-title vn-only">Kiểm Toán IRS Tăng Lên</div>
+        <div class="prob-body en-only">The IRS specifically targets industries known for worker misclassification. Nail salons are on the list. An audit can go back 3 years.</div>
+        <div class="prob-body vn-only">IRS đặc biệt nhắm vào các ngành công nghiệp nổi tiếng với việc phân loại sai người lao động. Tiệm nail nằm trong danh sách. Kiểm toán có thể quay lại 3 năm.</div>
+        <div class="prob-stat">3 yrs</div>
+        <div class="prob-stat-label en-only">IRS lookback period</div>
+        <div class="prob-stat-label vn-only">Thời gian IRS xem xét lại</div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-icon">💸</div>
+        <div class="prob-title en-only">The Penalties Are Real</div>
+        <div class="prob-title vn-only">Hình Phạt Là Thật</div>
+        <div class="prob-body en-only">Back taxes, interest, and penalties for misclassification can easily exceed $10,000–$50,000 per worker. Most salon owners don't know this.</div>
+        <div class="prob-body vn-only">Thuế trả sau, lãi suất và tiền phạt cho phân loại sai có thể dễ dàng vượt quá $10,000–$50,000 mỗi thợ. Hầu hết chủ tiệm không biết điều này.</div>
+        <div class="prob-stat">$50K+</div>
+        <div class="prob-stat-label en-only">potential liability per worker</div>
+        <div class="prob-stat-label vn-only">trách nhiệm tiềm ẩn mỗi thợ</div>
+      </div>
+      <div class="problem-card">
+        <div class="prob-icon">😰</div>
+        <div class="prob-title en-only">Most Owners Don't Know How to Switch</div>
+        <div class="prob-title vn-only">Hầu Hết Chủ Không Biết Cách Chuyển Đổi</div>
+        <div class="prob-body en-only">Between EINs, W-4s, FICA, TWC registration, and quarterly filings — it's overwhelming. Especially when English is your second language.</div>
+        <div class="prob-body vn-only">Giữa EIN, W-4, FICA, đăng ký TWC và khai báo hàng quý — thật quá sức. Đặc biệt khi tiếng Anh là ngôn ngữ thứ hai của bạn.</div>
+        <div class="prob-stat">18 steps</div>
+        <div class="prob-stat-label en-only">to complete the transition</div>
+        <div class="prob-stat-label vn-only">để hoàn thành quá trình chuyển đổi</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section steps-section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label en-only">How It Works</div>
+      <div class="section-label vn-only">Cách Thức Hoạt Động</div>
+      <h2 class="section-title en-only">From 1099 to W2 in 4 phases</h2>
+      <h2 class="section-title vn-only">Từ 1099 Sang W2 Trong 4 Giai Đoạn</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card active">
+        <div class="step-num">1</div>
+        <div class="step-title en-only">Check Your Risk</div>
+        <div class="step-title vn-only">Kiểm Tra Rủi Ro</div>
+        <div class="step-body en-only">Use our free quiz to find out if the IRS would consider your techs employees — takes 2 minutes.</div>
+        <div class="step-body vn-only">Dùng bài kiểm tra miễn phí để biết IRS có coi thợ của bạn là nhân viên không — mất 2 phút.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-title en-only">Calculate Real Costs</div>
+        <div class="step-title vn-only">Tính Chi Phí Thực</div>
+        <div class="step-body en-only">See exactly what your commission structure costs as W2 wages — gross pay, withholding, employer FICA.</div>
+        <div class="step-body vn-only">Xem cấu trúc hoa hồng của bạn tốn bao nhiêu dưới dạng lương W2 — lương gộp, khấu trừ, FICA chủ.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-title en-only">Follow the Checklist</div>
+        <div class="step-title vn-only">Làm Theo Danh Sách</div>
+        <div class="step-body en-only">18 checkboxes covering everything from EIN to first paycheck — in English and Vietnamese.</div>
+        <div class="step-body vn-only">18 ô kiểm tra bao gồm mọi thứ từ EIN đến séc lương đầu tiên — bằng tiếng Anh và Việt.</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-title en-only">Run Payroll with Confidence</div>
+        <div class="step-title vn-only">Chạy Bảng Lương Với Sự Tự Tin</div>
+        <div class="step-body en-only">Set up Gusto or get CPA help — and never worry about an IRS audit again.</div>
+        <div class="step-body vn-only">Thiết lập Gusto hoặc nhờ CPA giúp — và không bao giờ lo lắng về kiểm toán IRS nữa.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS SECTION -->
+<section class="section tools-section" id="tools">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label en-only">Free Tools</div>
+      <div class="section-label vn-only">Công Cụ Miễn Phí</div>
+      <h2 class="section-title en-only">Everything you need, at no cost</h2>
+      <h2 class="section-title vn-only">Mọi thứ bạn cần, hoàn toàn miễn phí</h2>
+      <p class="section-sub en-only">Three tools built specifically for nail salons. No signup required to use the calculator and quiz.</p>
+      <p class="section-sub vn-only">Ba công cụ được xây dựng đặc biệt cho tiệm nail. Không cần đăng ký để sử dụng máy tính và bài kiểm tra.</p>
+    </div>
+    <div class="tools-grid">
+      <a href="nail-salon-payroll.html" class="tool-card">
+        <div class="tool-card-icon">🧮</div>
+        <div class="tool-card-label en-only">Free Tool</div>
+        <div class="tool-card-label vn-only">Công Cụ Miễn Phí</div>
+        <div class="tool-card-title en-only">Commission-to-W2 Calculator</div>
+        <div class="tool-card-title vn-only">Máy Tính Hoa Hồng → W2</div>
+        <div class="tool-card-desc en-only">Enter service price, commission %, and weekly clients. See gross wages, take-home pay, employer FICA, and total monthly cost instantly.</div>
+        <div class="tool-card-desc vn-only">Nhập giá dịch vụ, % hoa hồng và khách hàng hàng tuần. Xem lương gộp, tiền nhận về, FICA chủ và tổng chi phí tháng ngay lập tức.</div>
+        <div class="tool-card-cta"><span class="en-only">Calculate now</span><span class="vn-only">Tính ngay</span> →</div>
+      </a>
+      <a href="nail-salon-payroll.html" class="tool-card">
+        <div class="tool-card-icon">⚠️</div>
+        <div class="tool-card-label en-only">Free Quiz</div>
+        <div class="tool-card-label vn-only">Bài Kiểm Tra Miễn Phí</div>
+        <div class="tool-card-title en-only">1099 Risk Check</div>
+        <div class="tool-card-title vn-only">Kiểm Tra Rủi Ro 1099</div>
+        <div class="tool-card-desc en-only">8 yes/no questions based on the IRS 20-factor test. Get an instant risk rating: High, Moderate, or Low — and what to do next.</div>
+        <div class="tool-card-desc vn-only">8 câu hỏi có/không dựa trên kiểm tra 20 yếu tố của IRS. Nhận đánh giá rủi ro ngay lập tức: Cao, Vừa hoặc Thấp — và phải làm gì tiếp theo.</div>
+        <div class="tool-card-cta"><span class="en-only">Check my risk</span><span class="vn-only">Kiểm tra rủi ro</span> →</div>
+      </a>
+      <a href="nail-salon-payroll.html" class="tool-card">
+        <div class="tool-card-icon">✅</div>
+        <div class="tool-card-label en-only">Free Checklist</div>
+        <div class="tool-card-label vn-only">Danh Sách Miễn Phí</div>
+        <div class="tool-card-title en-only">18-Step Transition Checklist</div>
+        <div class="tool-card-title vn-only">Danh Sách 18 Bước Chuyển Đổi</div>
+        <div class="tool-card-desc en-only">Every step from getting your EIN to running your first W2 paycheck. Check boxes as you go. Available in English and Vietnamese.</div>
+        <div class="tool-card-desc vn-only">Từng bước từ lấy EIN đến chạy séc lương W2 đầu tiên. Đánh dấu khi bạn hoàn thành. Có sẵn bằng tiếng Anh và Việt.</div>
+        <div class="tool-card-cta"><span class="en-only">Open checklist</span><span class="vn-only">Mở danh sách</span> →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BILINGUAL STRIP -->
+<section class="bilingual-strip">
+  <div class="bilingual-inner">
+    <div class="bi-left">
+      <h2 class="bi-title en-only">Built for the <em>Vietnamese</em> nail salon community</h2>
+      <h2 class="bi-title vn-only">Được xây dựng cho cộng đồng tiệm nail <em>người Việt</em></h2>
+      <p class="en-only">No other payroll resource explains 1099-to-W2 in Vietnamese. This site exists because the community deserves tools in their own language — not just Google Translate.</p>
+      <p class="vn-only">Không có tài nguyên bảng lương nào khác giải thích 1099-to-W2 bằng tiếng Việt. Trang web này tồn tại vì cộng đồng xứng đáng có công cụ bằng ngôn ngữ của họ — không chỉ là Google Dịch.</p>
+      <div style="margin-top:20px; padding:16px; background:rgba(255,255,255,.05); border-radius:10px; border:1px solid rgba(255,255,255,.08)">
+        <div style="font-size:12px;color:#8892b0;margin-bottom:6px;font-weight:600;letter-spacing:.05em;text-transform:uppercase">From the CPA / Từ CPA</div>
+        <div style="font-size:15px;color:#ccd6f6;line-height:1.7">"I am a licensed CPA and nail salon clients keep asking me about this. I built these tools so no Vietnamese owner gets hit with a surprise IRS bill."</div>
+        <div style="font-size:13px;color:#8892b0;margin-top:8px;font-style:italic">"Tôi là CPA được cấp phép và khách hàng tiệm nail liên tục hỏi tôi về điều này. Tôi xây dựng những công cụ này để không có chủ người Việt nào bị hóa đơn IRS bất ngờ."</div>
+        <div style="font-size:13px;color:var(--gold);margin-top:10px;font-weight:600">— Thao Nguyen, CPA</div>
+      </div>
+    </div>
+    <div class="bi-right">
+      <div class="bi-quote">
+        <div class="bi-quote-flag">🇺🇸</div>
+        <div class="bi-quote-text">"What's the difference between 1099 and W2 for my nail techs?"</div>
+        <div class="bi-quote-vn">"Sự khác biệt giữa 1099 và W2 cho thợ nail của tôi là gì?"</div>
+      </div>
+      <div class="bi-quote">
+        <div class="bi-quote-flag">🇻🇳</div>
+        <div class="bi-quote-text">"How much more will I pay if I switch to W2?"</div>
+        <div class="bi-quote-vn">"Tôi sẽ trả thêm bao nhiêu nếu chuyển sang W2?"</div>
+      </div>
+      <div class="bi-quote">
+        <div class="bi-quote-flag">🇺🇸🇻🇳</div>
+        <div class="bi-quote-text">"Can I keep the same commission split with W2?"</div>
+        <div class="bi-quote-vn">"Tôi có thể giữ nguyên % hoa hồng với W2 không?"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing-section" id="pricing">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label en-only">Pricing</div>
+      <div class="section-label vn-only">Giá Cả</div>
+      <h2 class="section-title en-only">Free tools. Paid help when you need it.</h2>
+      <h2 class="section-title vn-only">Công cụ miễn phí. Trợ giúp có phí khi bạn cần.</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier en-only">Free Forever</div>
+        <div class="price-tier vn-only">Miễn Phí Mãi Mãi</div>
+        <div class="price-name en-only">DIY Tools</div>
+        <div class="price-name vn-only">Công Cụ Tự Làm</div>
+        <div class="price-amount">$0</div>
+        <div class="price-desc en-only">Everything you need to understand and plan your switch.</div>
+        <div class="price-desc vn-only">Mọi thứ bạn cần để hiểu và lên kế hoạch chuyển đổi.</div>
+        <ul class="price-features">
+          <li class="en-only">Commission-to-W2 calculator</li>
+          <li class="vn-only">Máy tính hoa hồng → W2</li>
+          <li class="en-only">1099 risk check quiz</li>
+          <li class="vn-only">Bài kiểm tra rủi ro 1099</li>
+          <li class="en-only">18-step transition checklist</li>
+          <li class="vn-only">Danh sách 18 bước chuyển đổi</li>
+          <li class="en-only">English + Vietnamese</li>
+          <li class="vn-only">Tiếng Anh + Việt</li>
+        </ul>
+        <button class="price-btn en-only" onclick="scrollTo('tools')">Use Free Tools</button>
+        <button class="price-btn vn-only" onclick="scrollTo('tools')">Dùng Công Cụ Miễn Phí</button>
+      </div>
+
+      <div class="price-card featured">
+        <div class="price-badge">Popular</div>
+        <div class="price-tier en-only">Digital Download</div>
+        <div class="price-tier vn-only">Tải Về Kỹ Thuật Số</div>
+        <div class="price-name en-only">Payroll Workbook</div>
+        <div class="price-name vn-only">Sổ Làm Việc Bảng Lương</div>
+        <div class="price-amount">$47</div>
+        <div class="price-desc en-only">Excel workbook to track commissions and run weekly payroll for your whole team.</div>
+        <div class="price-desc vn-only">Sổ làm việc Excel để theo dõi hoa hồng và chạy bảng lương hàng tuần cho cả đội.</div>
+        <ul class="price-features">
+          <li class="en-only">Weekly commission tracker (all techs)</li>
+          <li class="vn-only">Theo dõi hoa hồng hàng tuần</li>
+          <li class="en-only">Auto-calculates gross wages + FICA</li>
+          <li class="vn-only">Tự động tính lương gộp + FICA</li>
+          <li class="en-only">Pay stub generator</li>
+          <li class="vn-only">Tạo phiếu lương</li>
+          <li class="en-only">Bilingual English/Vietnamese tabs</li>
+          <li class="vn-only">Tab tiếng Anh/Việt song ngữ</li>
+          <li class="en-only">1099 liability estimator</li>
+          <li class="vn-only">Ước tính trách nhiệm 1099</li>
+        </ul>
+        <button class="price-btn en-only" onclick="window.open('https://gumroad.com','_blank')">Get the Workbook →</button>
+        <button class="price-btn vn-only" onclick="window.open('https://gumroad.com','_blank')">Lấy Sổ Làm Việc →</button>
+      </div>
+
+      <div class="price-card">
+        <div class="price-tier en-only">Done For You</div>
+        <div class="price-tier vn-only">Làm Giúp Bạn</div>
+        <div class="price-name en-only">CPA Setup Service</div>
+        <div class="price-name vn-only">Dịch Vụ Thiết Lập CPA</div>
+        <div class="price-amount">$500+</div>
+        <div class="price-desc en-only">Thao handles your entire W2 transition — in English or Vietnamese.</div>
+        <div class="price-desc vn-only">Thao xử lý toàn bộ quá trình chuyển đổi W2 — bằng tiếng Anh hoặc Việt.</div>
+        <ul class="price-features">
+          <li class="en-only">1099 misclassification risk review</li>
+          <li class="vn-only">Xem xét rủi ro phân loại sai</li>
+          <li class="en-only">EIN + TWC registration help</li>
+          <li class="vn-only">Giúp đăng ký EIN + TWC</li>
+          <li class="en-only">Gusto / payroll software setup</li>
+          <li class="vn-only">Thiết lập Gusto / phần mềm bảng lương</li>
+          <li class="en-only">Commission-to-W2 structure design</li>
+          <li class="vn-only">Thiết kế cấu trúc hoa hồng → W2</li>
+          <li class="en-only">Async — no in-person meetings needed</li>
+          <li class="vn-only">Không đồng bộ — không cần gặp trực tiếp</li>
+        </ul>
+        <button class="price-btn en-only" onclick="window.location.href='mailto:hello@nailsalonpayroll.com'">Contact Thao</button>
+        <button class="price-btn vn-only" onclick="window.location.href='mailto:hello@nailsalonpayroll.com'">Liên Hệ Thao</button>
+      </div>
+    </div>
+
+    <!-- GUSTO AFFILIATE -->
+    <div style="background:var(--charcoal);border-radius:14px;padding:28px 32px;margin-top:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+      <div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gold);margin-bottom:6px" class="en-only">Recommended Payroll Software</div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--gold);margin-bottom:6px" class="vn-only">Phần Mềm Bảng Lương Được Đề Xuất</div>
+        <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:4px" class="en-only">Run payroll on Gusto — handles everything automatically</div>
+        <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:4px" class="vn-only">Chạy bảng lương trên Gusto — xử lý mọi thứ tự động</div>
+        <div style="font-size:14px;color:#8892b0" class="en-only">Tax filings, direct deposit, W-2s — starting at $40/month. 3 months free with our link.</div>
+        <div style="font-size:14px;color:#8892b0" class="vn-only">Khai thuế, chuyển khoản trực tiếp, W-2 — từ $40/tháng. 3 tháng miễn phí với liên kết của chúng tôi.</div>
+      </div>
+      <a href="https://gusto.com/r/thaof754bb20" target="_blank" style="background:var(--gold);color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;white-space:nowrap;transition:background .2s" onmouseover="this.style.background='#a06a20'" onmouseout="this.style.background='var(--gold)'">
+        <span class="en-only">Try Gusto Free →</span>
+        <span class="vn-only">Dùng Gusto Miễn Phí →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-section" id="faq">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label en-only">Common Questions</div>
+      <div class="section-label vn-only">Câu Hỏi Thường Gặp</div>
+      <h2 class="section-title en-only">Questions nail salon owners ask us</h2>
+      <h2 class="section-title vn-only">Câu hỏi chủ tiệm nail thường hỏi chúng tôi</h2>
+    </div>
+    <div class="faq-grid" id="faq-container"></div>
+  </div>
+</section>
+
+<!-- EMAIL CAPTURE -->
+<section class="section email-section" id="email-section">
+  <div class="section-inner" style="max-width:640px">
+    <div class="section-label" style="color:rgba(255,255,255,.6)" class="en-only">Free Download</div>
+    <h2 class="section-title en-only">Get the Free 1099→W2 Cheat Sheet</h2>
+    <h2 class="section-title vn-only">Nhận Tờ Hướng Dẫn 1099→W2 Miễn Phí</h2>
+    <p class="section-sub en-only">One-page PDF covering the 5 biggest mistakes nail salons make when switching. English + Vietnamese. Free.</p>
+    <p class="section-sub vn-only">PDF một trang đề cập 5 sai lầm lớn nhất của tiệm nail khi chuyển đổi. Tiếng Anh + Việt. Miễn phí.</p>
+    <div class="email-what">
+      <div class="email-what-item">✅ <span class="en-only">5 common mistakes</span><span class="vn-only">5 sai lầm phổ biến</span></div>
+      <div class="email-what-item">✅ <span class="en-only">Texas-specific tips</span><span class="vn-only">Mẹo riêng cho Texas</span></div>
+      <div class="email-what-item">✅ <span class="en-only">English + Vietnamese</span><span class="vn-only">Tiếng Anh + Việt</span></div>
+    </div>
+    <div class="email-form">
+      <input class="email-input" type="email" id="email-input" placeholder="your@email.com">
+      <button class="email-btn" onclick="submitEmail()">
+        <span class="en-only">Send Me the PDF</span>
+        <span class="vn-only">Gửi PDF Cho Tôi</span>
+      </button>
+    </div>
+    <div class="email-note en-only">No spam. Unsubscribe anytime. We send payroll tips for nail salon owners.</div>
+    <div class="email-note vn-only">Không spam. Hủy đăng ký bất cứ lúc nào. Chúng tôi gửi mẹo bảng lương cho chủ tiệm nail.</div>
+    <div class="email-success" id="email-success">
+      🎉 <span class="en-only">Check your inbox! Your cheat sheet is on the way.</span>
+      <span class="vn-only">Kiểm tra hộp thư đến! Tờ hướng dẫn của bạn đang trên đường.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about-section">
+  <div class="section-inner">
+    <div class="about-inner">
+      <div class="about-avatar">👩‍💼</div>
+      <div>
+        <div class="about-name">Thao Nguyen, CPA</div>
+        <div class="about-role en-only">Real Estate & Payroll Tax Specialist • Licensed CPA</div>
+        <div class="about-role vn-only">Chuyên Gia Thuế Bất Động Sản & Bảng Lương • CPA Được Cấp Phép</div>
+        <p class="about-bio en-only">I'm a bilingual CPA (English and Vietnamese) specializing in real estate and small business taxation. I built this site because I kept seeing Vietnamese nail salon owners get blindsided by IRS penalties they didn't know were coming. The tools here are free because this community deserves access to real CPA knowledge — not just generic tax advice.</p>
+        <p class="about-bio vn-only">Tôi là CPA song ngữ (tiếng Anh và Việt) chuyên về thuế bất động sản và doanh nghiệp nhỏ. Tôi xây dựng trang web này vì tôi liên tục thấy chủ tiệm nail người Việt bị bất ngờ bởi các khoản phạt IRS mà họ không biết đang đến. Các công cụ ở đây miễn phí vì cộng đồng này xứng đáng được tiếp cận kiến thức CPA thực sự.</p>
+        <div class="about-badges">
+          <span class="about-badge">🎓 Licensed CPA</span>
+          <span class="about-badge">🏠 Real Estate Tax</span>
+          <span class="about-badge">💼 Payroll Specialist</span>
+          <span class="about-badge">🇻🇳 Vietnamese-Speaking</span>
+          <span class="about-badge">📍 Texas-Based</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="fb-name">💅 NailSalonPayroll.com</div>
+        <div class="fb-desc en-only">Free payroll tools and CPA guidance for Vietnamese nail salon owners switching from 1099 to W2.</div>
+        <div class="fb-desc vn-only">Công cụ bảng lương miễn phí và hướng dẫn CPA cho chủ tiệm nail người Việt chuyển từ 1099 sang W2.</div>
+      </div>
+      <div class="footer-col">
+        <h4 class="en-only">Tools</h4>
+        <h4 class="vn-only">Công Cụ</h4>
+        <a href="nail-salon-payroll.html" class="en-only">W2 Calculator</a>
+        <a href="nail-salon-payroll.html" class="vn-only">Máy Tính W2</a>
+        <a href="nail-salon-payroll.html" class="en-only">Risk Check Quiz</a>
+        <a href="nail-salon-payroll.html" class="vn-only">Kiểm Tra Rủi Ro</a>
+        <a href="nail-salon-payroll.html" class="en-only">Transition Checklist</a>
+        <a href="nail-salon-payroll.html" class="vn-only">Danh Sách Chuyển Đổi</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="en-only">Resources</h4>
+        <h4 class="vn-only">Tài Nguyên</h4>
+        <a href="https://realtytaxtools.com" target="_blank">RealtyTaxTools.com</a>
+        <a href="https://gusto.com/r/thaof754bb20" target="_blank">Gusto Payroll</a>
+        <a href="https://www.irs.gov" target="_blank">IRS.gov</a>
+        <a href="https://www.twc.texas.gov" target="_blank">Texas TWC</a>
+        <a href="mailto:hello@nailsalonpayroll.com" class="en-only">Contact Thao</a>
+        <a href="mailto:hello@nailsalonpayroll.com" class="vn-only">Liên Hệ Thao</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 NailSalonPayroll.com — Thao Nguyen, CPA</p>
+      <p class="footer-disclaimer en-only">This site provides general tax information for educational purposes only. It is not legal or tax advice. Consult a licensed CPA for your specific situation. Gusto link is an affiliate link.</p>
+      <p class="footer-disclaimer vn-only">Trang web này cung cấp thông tin thuế chung chỉ cho mục đích giáo dục. Đây không phải là tư vấn pháp lý hoặc thuế. Tham khảo CPA được cấp phép cho tình huống cụ thể của bạn.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── LANG ──────────────────────────────────────────────────
+function setLang(lang) {
+  document.body.classList.toggle('vn', lang === 'vn');
+  document.querySelectorAll('.lang-btn').forEach((b,i) => {
+    b.classList.toggle('active', (i===0&&lang==='en')||(i===1&&lang==='vn'));
+  });
+}
+
+// ── SCROLL ────────────────────────────────────────────────
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── LIVE HERO CALC ────────────────────────────────────────
+function fmt(n) {
+  return '$' + Math.round(n).toLocaleString();
+}
+function liveCalc() {
+  const price   = parseFloat(document.getElementById('h-price').value)   || 0;
+  const clients = parseFloat(document.getElementById('h-clients').value) || 0;
+  const comm    = parseFloat(document.getElementById('h-comm').value)/100 || 0;
+  const techs   = parseFloat(document.getElementById('h-techs').value)   || 1;
+
+  const weekRev   = price * clients;
+  const gross     = weekRev * comm;
+  const empFica   = gross * 0.0765;
+  const erFica    = gross * 0.0765;
+  const fedEst    = gross * 0.12;
+  const net       = gross - empFica - fedEst;
+  const monthly   = (gross + erFica) * 4 * techs;
+
+  document.getElementById('h-gross').textContent   = fmt(gross);
+  document.getElementById('h-net').textContent     = fmt(Math.max(0, net));
+  document.getElementById('h-fica').textContent    = fmt(erFica);
+  document.getElementById('h-monthly').textContent = fmt(monthly);
+}
+liveCalc();
+
+// ── FAQ ───────────────────────────────────────────────────
+const faqs = [
+  { q: "Can I keep the same commission split when switching to W2?",
+    qv: "Tôi có thể giữ nguyên % hoa hồng khi chuyển sang W2 không?",
+    a: "Yes — the commission percentage becomes the gross wage. A 60% commission on a $50 service = $30 gross wage. But the tech's take-home will be less than $30 after tax withholding. Many owners don't realize this until their first paycheck.",
+    av: "Có — phần trăm hoa hồng trở thành lương gộp. Hoa hồng 60% trên dịch vụ $50 = lương gộp $30. Nhưng thợ sẽ nhận về ít hơn $30 sau khấu trừ thuế." },
+  { q: "How much more does it cost the salon to pay W2 vs 1099?",
+    qv: "Tiệm trả W2 tốn thêm bao nhiêu so với 1099?",
+    a: "The extra cost is employer-side FICA: 7.65% of gross wages. In Texas there's no state income tax, so that's your only added cost. On $30,000/year gross wages per tech, that's about $2,295 extra per year.",
+    av: "Chi phí thêm là FICA phía chủ: 7.65% của lương gộp. Ở Texas không có thuế thu nhập tiểu bang, vì vậy đó là chi phí thêm duy nhất của bạn." },
+  { q: "What is the IRS Voluntary Classification Settlement Program?",
+    qv: "Chương trình Giải quyết Phân loại Tự nguyện IRS là gì?",
+    a: "It's an IRS program that lets you reclassify workers from 1099 to W2 voluntarily and pay only 10% of what you'd owe in back employment taxes. No penalties, no interest. It's the best option if you've been doing 1099 for years.",
+    av: "Đây là chương trình IRS cho phép bạn tự nguyện phân loại lại thợ từ 1099 sang W2 và chỉ trả 10% số tiền thuế việc làm truy thu. Không có hình phạt, không có lãi suất." },
+  { q: "Do I need to register with the Texas Workforce Commission?",
+    qv: "Tôi có cần đăng ký với Ủy ban Lực lượng Lao động Texas không?",
+    a: "Yes. When you have W2 employees in Texas, you must register with the TWC to pay State Unemployment Tax (SUTA). Registration is free at twc.texas.gov and takes about 20 minutes online.",
+    av: "Có. Khi bạn có nhân viên W2 ở Texas, bạn phải đăng ký với TWC để trả Thuế Thất nghiệp Tiểu bang (SUTA). Đăng ký miễn phí tại twc.texas.gov." },
+  { q: "What payroll software do you recommend for nail salons?",
+    qv: "Bạn đề xuất phần mềm bảng lương nào cho tiệm nail?",
+    a: "Gusto is our top recommendation. It handles federal and Texas tax filings automatically, offers direct deposit, generates W-2s at year end, and has a simple interface. Starting at $40/month for small teams.",
+    av: "Gusto là đề xuất hàng đầu của chúng tôi. Nó tự động xử lý khai thuế liên bang và Texas, cung cấp chuyển khoản trực tiếp, tạo W-2 cuối năm." },
+  { q: "What if I've been doing 1099 for years — am I in trouble?",
+    qv: "Nếu tôi đã làm 1099 nhiều năm — tôi có gặp rắc rối không?",
+    a: "Possibly — but the IRS Voluntary Classification program exists specifically for this situation. You proactively reclassify, pay a small fraction of what you'd owe, and move forward cleanly. Acting now is far better than waiting for an audit.",
+    av: "Có thể — nhưng chương trình Tự nguyện IRS tồn tại đặc biệt cho tình huống này. Bạn chủ động phân loại lại, trả một phần nhỏ số tiền bạn nợ, và tiến về phía trước rõ ràng." },
+];
+
+function buildFAQ() {
+  const container = document.getElementById('faq-container');
+  faqs.forEach((f, i) => {
+    const div = document.createElement('div');
+    div.className = 'faq-item';
+    div.innerHTML = `
+      <div class="faq-q" onclick="toggleFAQ(${i})">
+        <span class="faq-q-text"><span class="en-only">${f.q}</span><span class="vn-only">${f.qv}</span></span>
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-a en-only">${f.a}</div>
+      <div class="faq-a vn-only">${f.av}</div>`;
+    container.appendChild(div);
+  });
+}
+
+function toggleFAQ(i) {
+  const items = document.querySelectorAll('.faq-item');
+  items[i].classList.toggle('open');
+}
+
+// ── EMAIL ─────────────────────────────────────────────────
+function submitEmail() {
+  const val = document.getElementById('email-input').value;
+  if (!val || !val.includes('@')) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+  document.querySelector('.email-form').style.display = 'none';
+  document.getElementById('email-success').style.display = 'block';
+  // TODO: connect to ConvertKit API
+}
+
+// ── INIT ──────────────────────────────────────────────────
+buildFAQ();
+</script>
+</body>
+</html>

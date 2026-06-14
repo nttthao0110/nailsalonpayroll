@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nail Salon 1099→W-2 Transition Blueprint | NailSalonPayroll.com</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#8B1A2F;--red-lt:#FDF0F2;
+  --navy:#1C2B4A;--navy-lt:#EEF2FA;
+  --gold:#C9893A;--gold-lt:#FDF3E7;--gold-dk:#A06A20;
+  --green:#1E6B4A;--green-lt:#E8F5EE;
+  --gray:#6B7280;--gray-lt:#F4F5F7;
+  --border:#E5E7EB;--white:#fff;--ivory:#FAFAF8;--text:#111827;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--ivory);color:var(--text);font-size:15px;line-height:1.6}
+
+/* LANG BAR */
+.lang-bar{background:var(--navy);padding:10px 20px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.lang-logo{color:#fff;font-weight:800;font-size:14px}
+.lang-logo span{color:#f9a8c4}
+.lang-btns{display:flex;gap:6px}
+.lang-btn{background:transparent;border:1.5px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);padding:4px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.lang-btn.active{background:var(--red);border-color:var(--red);color:#fff}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#0f1e3a 0%,#1c2b4a 100%);padding:44px 20px 36px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(201,137,58,.15);border:1px solid rgba(201,137,58,.3);color:var(--gold);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:18px}
+.hero h1{font-size:clamp(22px,4vw,36px);font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.hero h1 em{color:#f9a8c4;font-style:normal}
+.hero p{color:#94a3b8;font-size:15px;max-width:520px;margin:0 auto 20px;line-height:1.7}
+.hero-meta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+.hero-pill{display:flex;align-items:center;gap:6px;color:#94a3b8;font-size:13px;font-weight:500}
+.hero-pill strong{color:#fff}
+.action-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-print{background:var(--gold);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;font-size:14px;border:none;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;gap:7px}
+.btn-print:hover{background:var(--gold-dk)}
+.btn-back{background:transparent;color:#94a3b8;padding:12px 24px;border-radius:10px;font-weight:600;font-size:14px;border:1.5px solid rgba(255,255,255,.2);cursor:pointer;font-family:inherit;transition:all .2s;text-decoration:none;display:flex;align-items:center;gap:7px}
+.btn-back:hover{border-color:#fff;color:#fff}
+
+/* PROGRESS */
+.progress-section{background:var(--white);border-bottom:1px solid var(--border);padding:16px 20px;position:sticky;top:57px;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.progress-inner{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.prog-wrap{flex:1;height:8px;background:var(--border);border-radius:20px;overflow:hidden}
+.prog-bar{height:100%;background:var(--green);border-radius:20px;transition:width .4s;width:0%}
+.prog-label{font-size:13px;font-weight:600;color:var(--navy);white-space:nowrap}
+.prog-reset{font-size:12px;color:var(--gray);cursor:pointer;border:none;background:none;font-family:inherit;text-decoration:underline}
+
+/* MAIN */
+.main{max-width:720px;margin:0 auto;padding:28px 16px 80px}
+
+/* PHASE CARDS */
+.phase{margin-bottom:28px}
+.phase-header{border-radius:14px 14px 0 0;padding:18px 22px;display:flex;align-items:center;gap:14px}
+.phase-header.p1{background:var(--navy)}
+.phase-header.p2{background:linear-gradient(135deg,#7c2d12,#9a3412)}
+.phase-header.p3{background:linear-gradient(135deg,#1e3a5f,#1c2b4a)}
+.phase-header.p4{background:linear-gradient(135deg,#14532d,#166534)}
+.phase-header.p5{background:linear-gradient(135deg,#4c1d95,#5b21b6)}
+.phase-header.p6{background:linear-gradient(135deg,#1e3a5f,#0f2440)}
+.phase-icon{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.phase-title{color:#fff;font-size:17px;font-weight:800;line-height:1.2;margin-bottom:2px}
+.phase-sub{color:rgba(255,255,255,.65);font-size:12px;font-weight:500}
+.phase-count{margin-left:auto;background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap}
+
+/* STEPS */
+.steps{background:var(--white);border:1px solid var(--border);border-top:none;border-radius:0 0 14px 14px;overflow:hidden}
+.step{display:flex;align-items:flex-start;gap:0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .2s;padding:0}
+.step:last-child{border-bottom:none}
+.step:hover{background:var(--gray-lt)}
+.step.done{background:var(--green-lt)}
+.step-check{width:56px;min-height:64px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-right:1px solid var(--border)}
+.step.done .step-check{border-right-color:#a7f3d0}
+.chk{width:24px;height:24px;border-radius:6px;border:2px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:14px;transition:all .2s;flex-shrink:0}
+.step.done .chk{background:var(--green);border-color:var(--green);color:#fff}
+.step-num{width:32px;min-height:64px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--gray);flex-shrink:0;border-right:1px solid var(--border)}
+.step.done .step-num{color:var(--green)}
+.step-body{padding:14px 16px;flex:1}
+.step-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:2px;line-height:1.4}
+.step.done .step-title{text-decoration:line-through;color:var(--gray)}
+.step-vn{font-size:12px;color:var(--gray);margin-bottom:4px;font-style:italic}
+.step.done .step-vn{text-decoration:line-through}
+.step-note{font-size:12px;color:var(--gold-dk);background:var(--gold-lt);border-radius:5px;padding:4px 8px;display:inline-block;margin-top:4px}
+.step-tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:20px;margin-bottom:5px}
+.tag-vcsp{background:#fde68a;color:#92400e}
+.tag-talk{background:#fce7f3;color:#9d174d}
+.tag-legal{background:#dbeafe;color:#1e40af}
+.tag-key{background:#d1fae5;color:#065f46}
+
+/* STAR PHASE — Talk to techs */
+.phase-header.p2 .phase-icon::after{content:'⭐'}
+.star-note{background:linear-gradient(135deg,#7c2d12,#9a3412);border-radius:10px;padding:14px 16px;margin-bottom:0;display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid rgba(255,255,255,.1)}
+.star-note-icon{font-size:20px;flex-shrink:0}
+.star-note-text{font-size:13px;color:rgba(255,255,255,.85);line-height:1.6}
+.star-note-text strong{color:#fff}
+
+/* TIPS BOX */
+.tips-box{background:var(--navy-lt);border:1px solid #c7d7f5;border-radius:10px;padding:14px 16px;margin-top:12px;font-size:13px;color:var(--navy);line-height:1.6}
+.tips-box strong{font-weight:700}
+
+/* VCSP BOX */
+.vcsp-box{background:var(--gold-lt);border:1.5px solid #fcd34d;border-radius:10px;padding:14px 16px;margin-top:12px;font-size:13px;color:var(--gold-dk);line-height:1.6}
+.vcsp-box strong{color:var(--navy)}
+
+/* SUMMARY */
+.summary{background:var(--navy);border-radius:14px;padding:24px;margin-bottom:24px;text-align:center}
+.summary h3{color:#fff;font-size:18px;font-weight:800;margin-bottom:6px}
+.summary p{color:#94a3b8;font-size:13px;margin-bottom:16px}
+.summary-stats{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.ss-box{background:rgba(255,255,255,.08);border-radius:10px;padding:12px 18px;text-align:center}
+.ss-val{font-family:'DM Mono',monospace;font-size:24px;font-weight:500;color:var(--gold)}
+.ss-label{font-size:11px;color:#94a3b8;margin-top:2px}
+
+/* LANG */
+.ei{display:inline}.vi{display:none}
+.eb{display:block}.vb{display:none}
+body.vn .ei{display:none}body.vn .vi{display:inline}
+body.vn .eb{display:none}body.vn .vb{display:block}
+
+/* FOOTER */
+.page-footer{text-align:center;padding:24px;font-size:12px;color:var(--gray)}
+.page-footer a{color:var(--red)}
+
+/* PRINT */
+@media print{
+  .lang-bar,.progress-section,.action-btns,.btn-print,.btn-back,.page-footer{display:none!important}
+  .hero{padding:20px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .phase-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .step{break-inside:avoid}
+  body{font-size:12px}
+  .main{padding:0 8px}
+}
+@media(max-width:480px){
+  .step-num{display:none}
+  .progress-inner{flex-wrap:wrap;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <div class="lang-logo">💅 NailSalon<span>Payroll</span>.com</div>
+  <div class="lang-btns">
+    <button class="lang-btn active" onclick="setLang('en')">English</button>
+    <button class="lang-btn" onclick="setLang('vn')">Tiếng Việt</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📋 <span class="ei">Free Download</span><span class="vi">Tải Về Miễn Phí</span></div>
+  <h1 class="eb en">The Nail Salon<br>1099→W-2 Transition <em>Blueprint</em></h1>
+  <h1 class="vb vn">Kế Hoạch Chuyển Đổi<br>1099→W-2 Tiệm Nail <em>Hoàn Chỉnh</em></h1>
+  <p class="eb ei">A 30-step checklist covering everything from the decision to make the switch, through your first W-2 payroll — including the conversation with your techs that most owners dread.</p>
+  <p class="vb vi">Danh sách 30 bước bao gồm tất cả mọi thứ từ quyết định chuyển đổi đến bảng lương W-2 đầu tiên — bao gồm cuộc trò chuyện với thợ mà hầu hết chủ tiệm lo ngại.</p>
+  <div class="hero-meta">
+    <div class="hero-pill"><span>📋</span><span><strong class="ei">30 steps</strong><strong class="vi">30 bước</strong></span></div>
+    <div class="hero-pill"><span>🇺🇸🇻🇳</span><span><strong class="ei">English + Vietnamese</strong><strong class="vi">Tiếng Anh + Việt</strong></span></div>
+    <div class="hero-pill"><span>👩‍💼</span><span><strong class="ei">By Thao Nguyen, CPA</strong><strong class="vi">Bởi Thao Nguyen, CPA</strong></span></div>
+  </div>
+  <div class="action-btns">
+    <a href="index.html" class="btn-back">← <span class="ei">Back to Calculator</span><span class="vi">Quay Lại Máy Tính</span></a>
+    <button class="btn-print" onclick="window.print()">🖨️ <span class="ei">Print / Save PDF</span><span class="vi">In / Lưu PDF</span></button>
+  </div>
+</div>
+
+<!-- PROGRESS BAR -->
+<div class="progress-section">
+  <div class="progress-inner">
+    <div class="prog-wrap"><div class="prog-bar" id="prog-bar"></div></div>
+    <div class="prog-label" id="prog-label">0 / 30</div>
+    <button class="prog-reset" onclick="resetAll()">
+      <span class="ei">Reset</span><span class="vi">Đặt lại</span>
+    </button>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- VCSP CALLOUT -->
+<div class="vcsp-box" style="margin-bottom:20px">
+  <strong class="ei">💡 IRS Voluntary Classification Settlement Program (VCSP):</strong>
+  <strong class="vi">💡 Chương Trình VCSP của IRS:</strong>
+  <span class="ei"> If you've been paying techs as 1099 for years, the VCSP can significantly reduce federal employment tax exposure for eligible businesses — with reduced penalties and interest. You must apply before an IRS audit begins. Eligibility and exact savings depend on your specific facts. Ask your CPA.</span>
+  <span class="vi"> Nếu bạn đã trả thợ theo 1099 nhiều năm, VCSP có thể giảm đáng kể rủi ro thuế việc làm liên bang cho các doanh nghiệp đủ điều kiện — với hình phạt và lãi suất giảm. Bạn phải nộp đơn trước khi IRS bắt đầu kiểm toán. Điều kiện tùy thuộc vào thực tế cụ thể của bạn.</span>
+</div>
+
+<!-- DON'T DO THIS -->
+<div style="background:var(--red-lt);border:1.5px solid #fca5a5;border-radius:14px;padding:20px 22px;margin-bottom:20px">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+    <span style="font-size:22px">🚫</span>
+    <div>
+      <div style="font-size:15px;font-weight:800;color:var(--red-dk)" class="eb ei">Common Mistakes to Avoid</div>
+      <div style="font-size:15px;font-weight:800;color:var(--red-dk)" class="vb vi">Những Sai Lầm Phổ Biến Cần Tránh</div>
+      <div style="font-size:12px;color:var(--red-dk);opacity:.7" class="ei">Read this before you start</div>
+      <div style="font-size:12px;color:var(--red-dk);opacity:.7" class="vi">Đọc điều này trước khi bắt đầu</div>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div style="background:var(--white);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--red-dk);display:flex;gap:10px;align-items:flex-start">
+      <span style="font-weight:800;flex-shrink:0">🚫</span>
+      <div><strong class="ei">Don't backdate W-2 payroll.</strong><strong class="vi">Đừng ghi ngày hồi tố bảng lương W-2.</strong>
+      <span class="ei"> Start W-2 from a current date forward. Backdating creates serious legal and tax issues.</span>
+      <span class="vi"> Bắt đầu W-2 từ ngày hiện tại trở đi. Ghi ngày hồi tố tạo ra các vấn đề pháp lý và thuế nghiêm trọng.</span></div>
+    </div>
+    <div style="background:var(--white);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--red-dk);display:flex;gap:10px;align-items:flex-start">
+      <span style="font-weight:800;flex-shrink:0">🚫</span>
+      <div><strong class="ei">Don't issue both 1099 and W-2 for the same work period without CPA guidance.</strong><strong class="vi">Đừng phát hành cả 1099 và W-2 cho cùng một kỳ làm việc mà không có hướng dẫn CPA.</strong>
+      <span class="ei"> This creates conflicting records and can trigger audits.</span>
+      <span class="vi"> Điều này tạo ra hồ sơ mâu thuẫn và có thể kích hoạt kiểm toán.</span></div>
+    </div>
+    <div style="background:var(--white);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--red-dk);display:flex;gap:10px;align-items:flex-start">
+      <span style="font-weight:800;flex-shrink:0">🚫</span>
+      <div><strong class="ei">Don't tell techs "nothing changes."</strong><strong class="vi">Đừng nói với thợ "không có gì thay đổi."</strong>
+      <span class="ei"> Something does change — withholding. Be honest. Use Phase 2 of this checklist.</span>
+      <span class="vi"> Có điều thay đổi — khấu trừ thuế. Hãy trung thực. Sử dụng Giai Đoạn 2 của danh sách này.</span></div>
+    </div>
+    <div style="background:var(--white);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--red-dk);display:flex;gap:10px;align-items:flex-start">
+      <span style="font-weight:800;flex-shrink:0">🚫</span>
+      <div><strong class="ei">Don't ignore your state unemployment registration.</strong><strong class="vi">Đừng bỏ qua đăng ký thất nghiệp tiểu bang.</strong>
+      <span class="ei"> Texas requires TWC registration for W-2 employees. Skipping this creates penalties.</span>
+      <span class="vi"> Texas yêu cầu đăng ký TWC cho nhân viên W-2. Bỏ qua điều này tạo ra hình phạt.</span></div>
+    </div>
+    <div style="background:var(--white);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--red-dk);display:flex;gap:10px;align-items:flex-start">
+      <span style="font-weight:800;flex-shrink:0">🚫</span>
+      <div><strong class="ei">Don't wait until an audit letter arrives.</strong><strong class="vi">Đừng chờ đến khi nhận được thư kiểm toán.</strong>
+      <span class="ei"> The VCSP program (above) is only available before an IRS audit begins. After that, full penalties apply.</span>
+      <span class="vi"> Chương trình VCSP (ở trên) chỉ có trước khi IRS bắt đầu kiểm toán. Sau đó, phạt đầy đủ sẽ áp dụng.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 1 -->
+<div class="phase" id="phase-1">
+  <div class="phase-header p1">
+    <div class="phase-icon">🔍</div>
+    <div>
+      <div class="phase-title ei">Phase 1 — Before You Decide</div>
+      <div class="phase-title vi">Giai Đoạn 1 — Trước Khi Quyết Định</div>
+      <div class="phase-sub ei">Understand your situation before making any changes</div>
+      <div class="phase-sub vi">Hiểu tình huống của bạn trước khi thay đổi bất cứ điều gì</div>
+    </div>
+    <div class="phase-count ei">Steps 1–6</div>
+    <div class="phase-count vi">Bước 1–6</div>
+  </div>
+  <div class="steps" id="steps-phase-1"></div>
+</div>
+
+<!-- PHASE 2 -->
+<div class="phase" id="phase-2">
+  <div class="phase-header p2">
+    <div class="phase-icon">💬</div>
+    <div>
+      <div class="phase-title ei">Phase 2 — Talk to Your Techs ⭐</div>
+      <div class="phase-title vi">Giai Đoạn 2 — Nói Chuyện Với Thợ ⭐</div>
+      <div class="phase-sub ei">The most important phase — where most transitions fail</div>
+      <div class="phase-sub vi">Giai đoạn quan trọng nhất — nơi hầu hết các chuyển đổi thất bại</div>
+    </div>
+    <div class="phase-count ei">Steps 7–11</div>
+    <div class="phase-count vi">Bước 7–11</div>
+  </div>
+  <div class="star-note">
+    <div class="star-note-icon">⭐</div>
+    <div class="star-note-text">
+      <strong class="ei">Most transitions don't fail on the tax side — they fail here.</strong>
+      <strong class="vi">Hầu hết các chuyển đổi không thất bại về phía thuế — chúng thất bại ở đây.</strong>
+      <span class="ei"> Techs hear "W-2" and worry about losing money. Your job in this phase is to explain the change clearly and honestly before rumors spread through the salon.</span>
+      <span class="vi"> Thợ nghe "W-2" và lo lắng về việc mất tiền. Công việc của bạn trong giai đoạn này là giải thích thay đổi một cách rõ ràng và trung thực trước khi tin đồn lan ra tiệm.</span>
+    </div>
+  </div>
+  <div class="steps" id="steps-phase-2"></div>
+</div>
+
+<!-- STAFF MEETING SCRIPT -->
+<div style="background:linear-gradient(135deg,#7c2d12,#9a3412);border-radius:14px;padding:22px;margin-bottom:20px">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+    <span style="font-size:22px">🎤</span>
+    <div>
+      <div style="color:#fff;font-size:15px;font-weight:800" class="ei">Staff Meeting Script — What to Say Word for Word</div>
+      <div style="color:#fff;font-size:15px;font-weight:800" class="vi">Kịch Bản Họp Nhân Viên — Những Gì Cần Nói Từng Chữ</div>
+      <div style="color:rgba(255,255,255,.65);font-size:12px" class="ei">Print this and read it directly to your techs if needed</div>
+      <div style="color:rgba(255,255,255,.65);font-size:12px" class="vi">In tài liệu này và đọc trực tiếp cho thợ nếu cần</div>
+    </div>
+    <button onclick="window.print()" style="margin-left:auto;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">🖨️ Print</button>
+  </div>
+  <div style="background:rgba(0,0,0,.2);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:10px">
+    <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:12px 14px">
+      <div style="color:rgba(255,255,255,.5);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Opening / Mở đầu</div>
+      <div style="color:#e2e8f0;font-size:14px;line-height:1.7" class="ei">"We are making a change to how you are paid. Starting [DATE], all technicians will be paid as W-2 employees instead of 1099 contractors. We are doing this to protect our salon and our team, and to do things the right way."</div>
+      <div style="color:#e2e8f0;font-size:14px;line-height:1.7;margin-top:8px" class="vi">"Chúng tôi đang thay đổi cách trả lương cho các bạn. Bắt đầu từ [NGÀY], tất cả thợ sẽ được trả theo W-2 thay vì 1099. Chúng tôi làm điều này để bảo vệ tiệm và đội ngũ của chúng ta, và để làm mọi thứ đúng cách."</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:12px 14px">
+      <div style="color:rgba(255,255,255,.5);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">On taxes / Về thuế</div>
+      <div style="color:#e2e8f0;font-size:14px;line-height:1.7" class="ei">"Taxes were always owed on your income. As a 1099 worker, you were responsible for paying them yourself every quarter. With W-2, we withhold them automatically from each paycheck — so you do not have to worry about a large tax bill at the end of the year."</div>
+      <div style="color:#e2e8f0;font-size:14px;line-height:1.7;margin-top:8px" class="vi">"Thuế luôn phải nộp trên thu nhập của bạn. Khi là 1099, bạn tự nộp mỗi quý. Với W-2, chúng tôi khấu trừ tự động từ mỗi séc lương — vì vậy bạn không phải lo về hóa đơn thuế lớn cuối năm."</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:12px 14px">
+      <div style="color:rgba(255,255,255,.5);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">On your benefit / Lợi ích cho bạn</div>
+      <div style="color:#e2e8f0;font-size:14px;line-height:1.7" class="ei">"As your employer, we will now pay half of your Social Security and Medicare taxes. As a 1099 contractor, you were paying 100% of those yourself. That is a real benefit to you."</div>
+      <div style="color:#e2e8f0;font-size:14px;line-height:1.7;margin-top:8px" class="vi">"Là chủ của bạn, chúng tôi sẽ trả một nửa thuế An Sinh Xã Hội và Medicare của bạn. Khi là nhà thầu 1099, bạn tự trả 100% khoản đó. Đây là lợi ích thực sự cho bạn."</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:12px 14px">
+      <div style="color:rgba(255,255,255,.5);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">On income documentation / Về chứng minh thu nhập</div>
+      <div style="color:#e2e8f0;font-size:14px;line-height:1.7" class="ei">"Your W-2 income is easier to document when applying for a home loan, car loan, or apartment. Many of you have told me banks do not accept 1099 income easily. W-2 changes that."</div>
+      <div style="color:#e2e8f0;font-size:14px;line-height:1.7;margin-top:8px" class="vi">"Thu nhập W-2 của bạn dễ chứng minh hơn khi xin vay mua nhà, xe hoặc thuê căn hộ. Nhiều bạn đã nói với tôi rằng ngân hàng không dễ chấp nhận thu nhập 1099. W-2 thay đổi điều đó."</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:8px;padding:12px 14px">
+      <div style="color:rgba(255,255,255,.5);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Closing / Kết thúc</div>
+      <div style="color:#e2e8f0;font-size:14px;line-height:1.7" class="ei">"I have a one-page handout showing your estimated paycheck under the new system. Please take one and ask me any questions. I want everyone to feel good about this change."</div>
+      <div style="color:#e2e8f0;font-size:14px;line-height:1.7;margin-top:8px" class="vi">"Tôi có một tờ thông tin một trang cho thấy séc lương ước tính của bạn theo hệ thống mới. Vui lòng lấy một tờ và hỏi tôi bất kỳ câu hỏi nào. Tôi muốn mọi người cảm thấy tốt về sự thay đổi này."</div>
+    </div>
+  </div>
+</div>
+
+<!-- PHASE 3 -->
+<div class="phase" id="phase-3">
+  <div class="phase-header p3">
+    <div class="phase-icon">🏛️</div>
+    <div>
+      <div class="phase-title ei">Phase 3 — Register & Set Up Payroll</div>
+      <div class="phase-title vi">Giai Đoạn 3 — Đăng Ký & Thiết Lập Bảng Lương</div>
+      <div class="phase-sub ei">Government registrations and software setup</div>
+      <div class="phase-sub vi">Đăng ký chính phủ và thiết lập phần mềm</div>
+    </div>
+    <div class="phase-count ei">Steps 12–16</div>
+    <div class="phase-count vi">Bước 12–16</div>
+  </div>
+  <div class="steps" id="steps-phase-3"></div>
+</div>
+
+<!-- PHASE 4 -->
+<div class="phase" id="phase-4">
+  <div class="phase-header p4">
+    <div class="phase-icon">📝</div>
+    <div>
+      <div class="phase-title ei">Phase 4 — Employee Onboarding</div>
+      <div class="phase-title vi">Giai Đoạn 4 — Tiếp Nhận Nhân Viên</div>
+      <div class="phase-sub ei">Paperwork required for each technician</div>
+      <div class="phase-sub vi">Giấy tờ cần thiết cho từng thợ</div>
+    </div>
+    <div class="phase-count ei">Steps 17–21</div>
+    <div class="phase-count vi">Bước 17–21</div>
+  </div>
+  <div class="steps" id="steps-phase-4"></div>
+</div>
+
+<!-- PHASE 5 -->
+<div class="phase" id="phase-5">
+  <div class="phase-header p5">
+    <div class="phase-icon">💸</div>
+    <div>
+      <div class="phase-title ei">Phase 5 — First Payroll</div>
+      <div class="phase-title vi">Giai Đoạn 5 — Bảng Lương Đầu Tiên</div>
+      <div class="phase-sub ei">Run your first W-2 payroll with confidence</div>
+      <div class="phase-sub vi">Chạy bảng lương W-2 đầu tiên của bạn với sự tự tin</div>
+    </div>
+    <div class="phase-count ei">Steps 22–25</div>
+    <div class="phase-count vi">Bước 22–25</div>
+  </div>
+  <div class="steps" id="steps-phase-5"></div>
+</div>
+
+<!-- PHASE 6 -->
+<div class="phase" id="phase-6">
+  <div class="phase-header p6">
+    <div class="phase-icon">📅</div>
+    <div>
+      <div class="phase-title ei">Phase 6 — Ongoing Compliance</div>
+      <div class="phase-title vi">Giai Đoạn 6 — Tuân Thủ Liên Tục</div>
+      <div class="phase-sub ei">Stay compliant — every quarter, every year</div>
+      <div class="phase-sub vi">Duy trì tuân thủ — mỗi quý, mỗi năm</div>
+    </div>
+    <div class="phase-count ei">Steps 26–30</div>
+    <div class="phase-count vi">Bước 26–30</div>
+  </div>
+  <div class="steps" id="steps-phase-6"></div>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary" id="summary" style="display:none">
+  <h3 class="ei">🎉 Blueprint Complete!</h3>
+  <h3 class="vi">🎉 Kế Hoạch Hoàn Thành!</h3>
+  <p class="ei">You've completed all 30 steps. Your salon is W-2 compliant.</p>
+  <p class="vi">Bạn đã hoàn thành tất cả 30 bước. Tiệm của bạn tuân thủ W-2.</p>
+  <div class="summary-stats">
+    <div class="ss-box"><div class="ss-val">30</div><div class="ss-label ei">Steps done</div><div class="ss-label vi">Bước hoàn thành</div></div>
+    <div class="ss-box"><div class="ss-val">6</div><div class="ss-label ei">Phases complete</div><div class="ss-label vi">Giai đoạn xong</div></div>
+    <div class="ss-box"><div class="ss-val">✅</div><div class="ss-label ei">IRS compliant</div><div class="ss-label vi">Tuân thủ IRS</div></div>
+  </div>
+</div>
+
+<!-- CPA NOTE -->
+<div style="background:var(--navy);border-radius:14px;padding:24px;margin-bottom:20px">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+    <div style="width:48px;height:48px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">👩‍💼</div>
+    <div>
+      <div style="color:#fff;font-size:16px;font-weight:800">Thao Nguyen, CPA</div>
+      <div style="color:#94a3b8;font-size:13px" class="ei">CPA Classification Review — $49</div>
+      <div style="color:#94a3b8;font-size:13px" class="vi">Đánh Giá Phân Loại CPA — $49</div>
+    </div>
+    <div style="margin-left:auto;background:var(--gold);color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;white-space:nowrap">$49</div>
+  </div>
+  <div style="color:#94a3b8;font-size:13px;margin-bottom:16px" class="ei">Not sure if you're okay or at risk? Submit your situation and receive a personalized CPA assessment within 48 hours — no calls, completely async, in English or Vietnamese.</div>
+  <div style="color:#94a3b8;font-size:13px;margin-bottom:16px" class="vi">Không chắc bạn ổn hay đang có rủi ro? Gửi tình huống và nhận đánh giá CPA cá nhân trong 48 giờ — không cần gọi điện, hoàn toàn không đồng bộ, tiếng Anh hoặc Việt.</div>
+
+  <div style="background:rgba(255,255,255,.05);border-radius:10px;padding:14px 16px;margin-bottom:16px">
+    <div style="color:var(--gold);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px" class="ei">What You Will Receive</div>
+    <div style="color:var(--gold);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px" class="vi">Những Gì Bạn Sẽ Nhận</div>
+    <div style="display:flex;flex-direction:column;gap:7px">
+      <div style="display:flex;gap:10px;font-size:13px;color:#e2e8f0"><span style="color:var(--gold);flex-shrink:0">✓</span><span class="ei"><strong style="color:#fff">Risk score</strong> — Low / Moderate / High classification risk for your specific setup</span><span class="vi"><strong style="color:#fff">Điểm rủi ro</strong> — Thấp / Vừa / Cao cho thiết lập cụ thể của bạn</span></div>
+      <div style="display:flex;gap:10px;font-size:13px;color:#e2e8f0"><span style="color:var(--gold);flex-shrink:0">✓</span><span class="ei"><strong style="color:#fff">VCSP assessment</strong> — Whether the IRS Voluntary Classification program may be worth exploring</span><span class="vi"><strong style="color:#fff">Đánh giá VCSP</strong> — Liệu chương trình Tự nguyện IRS có đáng khám phá không</span></div>
+      <div style="display:flex;gap:10px;font-size:13px;color:#e2e8f0"><span style="color:var(--gold);flex-shrink:0">✓</span><span class="ei"><strong style="color:#fff">Recommended transition approach</strong> — All at once, new hires only, or stay 1099</span><span class="vi"><strong style="color:#fff">Cách tiếp cận chuyển đổi được đề xuất</strong> — Tất cả cùng lúc, chỉ người mới, hoặc giữ 1099</span></div>
+      <div style="display:flex;gap:10px;font-size:13px;color:#e2e8f0"><span style="color:var(--gold);flex-shrink:0">✓</span><span class="ei"><strong style="color:#fff">Estimated next step cost</strong> — What W-2 would add to your monthly expenses</span><span class="vi"><strong style="color:#fff">Chi phí bước tiếp theo ước tính</strong> — W-2 sẽ thêm bao nhiêu vào chi phí hàng tháng</span></div>
+      <div style="display:flex;gap:10px;font-size:13px;color:#e2e8f0"><span style="color:var(--gold);flex-shrink:0">✓</span><span class="ei"><strong style="color:#fff">Personalized CPA comments</strong> — Written in plain English or Vietnamese, specific to your answers</span><span class="vi"><strong style="color:#fff">Nhận xét CPA cá nhân</strong> — Viết bằng tiếng Anh hoặc Việt đơn giản, cụ thể cho câu trả lời của bạn</span></div>
+    </div>
+  </div>
+  <a href="index.html#review" style="display:block;background:var(--red);color:#fff;padding:13px;border-radius:10px;font-weight:700;font-size:15px;text-decoration:none;text-align:center;transition:background .2s">
+    <span class="ei">Get My CPA Classification Review — $49 →</span>
+    <span class="vi">Nhận Đánh Giá Phân Loại CPA — $49 →</span>
+  </a>
+  <div style="color:#475569;font-size:12px;text-align:center;margin-top:8px" class="ei">Response within 48 hours · English or Vietnamese · Async — no calls needed</div>
+  <div style="color:#475569;font-size:12px;text-align:center;margin-top:8px" class="vi">Phản hồi trong 48 giờ · Tiếng Anh hoặc Việt · Không cần gọi điện</div>
+</div>
+
+</div><!-- /main -->
+
+<div class="page-footer">
+  <p>NailSalonPayroll.com — Thao Nguyen, CPA | <a href="index.html">Back to Calculator</a></p>
+  <p style="margin-top:4px;font-size:11px">General information only. Not legal or tax advice. Consult a licensed CPA for your specific situation. Keep payroll records at least 4 years per IRS guidelines.</p>
+</div>
+
+<script>
+// ── LANG ──────────────────────────────────────────
+function setLang(l){
+  document.body.classList.toggle('vn',l==='vn');
+  document.querySelectorAll('.lang-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&l==='en')||(i===1&&l==='vn')));
+  updateProgress();
+}
+
+// ── CHECKLIST DATA ─────────────────────────────────
+const phases = [
+  {
+    id:'phase-1',
+    steps:[
+      {en:'Review whether your techs show employee indicators using our Risk Quiz',
+       vn:'Xem xét liệu thợ của bạn có dấu hiệu nhân viên bằng Bài Kiểm Tra Rủi Ro',
+       note_en:'Use the free quiz at NailSalonPayroll.com — takes 2 minutes',
+       note_vn:'Dùng bài kiểm tra miễn phí tại NailSalonPayroll.com — mất 2 phút',
+       tag:'key'},
+      {en:'Estimate your additional W-2 payroll costs using our Cost Calculator',
+       vn:'Ước tính chi phí bảng lương W-2 thêm bằng Máy Tính Chi Phí của chúng tôi',
+       note_en:'Know the number before you decide — it may be smaller than you think',
+       note_vn:'Biết con số trước khi quyết định — có thể nhỏ hơn bạn nghĩ',
+       tag:'key'},
+      {en:'Estimate potential IRS misclassification exposure if audited',
+       vn:'Ước tính rủi ro IRS tiềm ẩn nếu bị kiểm toán vì phân loại sai',
+       note_en:'See the Audit Exposure section in the calculator results',
+       note_vn:'Xem phần Rủi Ro Kiểm Toán trong kết quả máy tính',
+       tag:null},
+      {en:'Check eligibility for the IRS Voluntary Classification Settlement Program (VCSP)',
+       vn:'Kiểm tra điều kiện tham gia Chương Trình VCSP của IRS',
+       note_en:'VCSP can significantly reduce tax exposure for eligible businesses — must apply before any IRS audit begins',
+       note_vn:'VCSP có thể giảm đáng kể rủi ro thuế việc làm liên bang cho các doanh nghiệp đủ điều kiện — với hình phạt và lãi suất giảm',
+       tag:'vcsp'},
+      {en:'Decide which workers will transition — all techs or new hires only',
+       vn:'Quyết định thợ nào sẽ chuyển đổi — tất cả thợ hay chỉ người mới',
+       note_en:'Some salons transition all at once; others start with new hires going forward',
+       note_vn:'Một số tiệm chuyển đổi cùng lúc; những tiệm khác bắt đầu với người mới',
+       tag:null},
+      {en:'Create a transition timeline — set your target start date',
+       vn:'Tạo lịch chuyển đổi — đặt ngày bắt đầu mục tiêu',
+       note_en:'Allow 4–6 weeks from decision to first W-2 payroll',
+       note_vn:'Cho phép 4–6 tuần từ quyết định đến bảng lương W-2 đầu tiên',
+       tag:null},
+    ]
+  },
+  {
+    id:'phase-2',
+    steps:[
+      {en:'Schedule a staff meeting — tell techs a change is coming',
+       vn:'Lên lịch họp nhân viên — nói với thợ rằng sẽ có thay đổi',
+       note_en:'Give at least 2 weeks notice. Rumors are worse than the news itself.',
+       note_vn:'Thông báo ít nhất 2 tuần. Tin đồn còn tệ hơn tin tức thực tế.',
+       tag:'talk'},
+      {en:'Explain clearly why the change is happening — be honest about compliance',
+       vn:'Giải thích rõ ràng tại sao thay đổi xảy ra — trung thực về tuân thủ',
+       note_en:'"We want to do things the right way and protect our salon and our team"',
+       note_vn:'"Chúng tôi muốn làm đúng và bảo vệ tiệm và đội ngũ của chúng tôi"',
+       tag:'talk'},
+      {en:'Show each tech the 1099 vs W-2 take-home comparison for their earnings',
+       vn:'Cho mỗi thợ xem so sánh thu nhập 1099 vs W-2 cho thu nhập của họ',
+       note_en:'Use the Employee Impact tool on NailSalonPayroll.com — show them their actual numbers',
+       note_vn:'Dùng công cụ Tác Động Nhân Viên — cho họ thấy con số thực của họ',
+       tag:'key'},
+      {en:'Answer the 4 questions every tech will ask',
+       vn:'Trả lời 4 câu hỏi mà mỗi thợ sẽ hỏi',
+       note_en:'"Will I lose money?" / "Why is tax withheld?" / "Can I deduct expenses?" / "What changes for me?"',
+       note_vn:'"Tôi có mất tiền không?" / "Tại sao khấu trừ thuế?" / "Tôi còn được khấu trừ chi phí không?" / "Điều gì thay đổi với tôi?"',
+       tag:'talk'},
+      {en:'Give each tech the bilingual handout from the Employee Impact tool',
+       vn:'Đưa cho mỗi thợ tờ thông tin song ngữ từ công cụ Tác Động Nhân Viên',
+       note_en:'Print it from NailSalonPayroll.com — English on front, Vietnamese on back works well',
+       note_vn:'In từ NailSalonPayroll.com — tiếng Anh mặt trước, tiếng Việt mặt sau rất tốt',
+       tag:'key'},
+    ]
+  },
+  {
+    id:'phase-3',
+    steps:[
+      {en:'Confirm or obtain your EIN (Employer Identification Number)',
+       vn:'Xác nhận hoặc lấy EIN (Mã Số Nhà Tuyển Dụng)',
+       note_en:'Most salons already have an EIN. Verify at IRS.gov — free, 5 minutes if you need one',
+       note_vn:'Hầu hết tiệm đã có EIN. Xác minh tại IRS.gov — miễn phí, 5 phút nếu bạn cần',
+       tag:null},
+      {en:'Register with Texas Workforce Commission (TWC) for unemployment tax',
+       vn:'Đăng ký với Ủy ban Lực lượng Lao động Texas (TWC) cho thuế thất nghiệp',
+       note_en:'Required for W-2 employees in Texas. Register free at twc.texas.gov',
+       note_vn:'Bắt buộc cho nhân viên W-2 ở Texas. Đăng ký miễn phí tại twc.texas.gov',
+       tag:'legal'},
+      {en:'Choose and sign up for payroll software',
+       vn:'Chọn và đăng ký phần mềm bảng lương',
+       note_en:'Gusto ($49 + $6/tech/mo) handles all tax filings automatically — recommended for most small salons',
+       note_vn:'Gusto ($49 + $6/thợ/tháng) tự động xử lý tất cả khai thuế — được đề xuất cho hầu hết tiệm nhỏ',
+       tag:null},
+      {en:'Open a dedicated payroll bank account (best practice)',
+       vn:'Mở tài khoản ngân hàng bảng lương riêng (thực hành tốt nhất)',
+       note_en:'Not required by law but strongly recommended — keeps payroll funds separate from operations',
+       note_vn:'Không bắt buộc theo luật nhưng được khuyến nghị mạnh mẽ — tách quỹ lương khỏi hoạt động',
+       tag:null},
+      {en:'Set your pay schedule in payroll software — weekly or bi-weekly',
+       vn:'Đặt lịch trả lương trong phần mềm — hàng tuần hoặc 2 tuần một lần',
+       note_en:'Weekly is most common in nail salons. Confirm with your techs.',
+       note_vn:'Hàng tuần phổ biến nhất trong tiệm nail. Xác nhận với thợ của bạn.',
+       tag:null},
+    ]
+  },
+  {
+    id:'phase-4',
+    steps:[
+      {en:'Collect completed Form W-4 from each technician',
+       vn:'Thu thập Mẫu W-4 đã điền từ mỗi thợ',
+       note_en:'Determines federal withholding. Give each tech time to complete — do not fill it in for them.',
+       note_vn:'Xác định khấu trừ liên bang. Cho mỗi thợ thời gian để điền — không điền thay họ.',
+       tag:'legal'},
+      {en:'Complete Form I-9 for each technician (verify work authorization)',
+       vn:'Hoàn thành Mẫu I-9 cho mỗi thợ (xác minh ủy quyền làm việc)',
+       note_en:'Required by law before first day of work. Keep originals on file — do not send to IRS.',
+       note_vn:'Bắt buộc theo luật trước ngày làm việc đầu tiên. Giữ bản gốc — không gửi cho IRS.',
+       tag:'legal'},
+      {en:'Enter each tech into payroll software with personal info and W-4 withholding',
+       vn:'Nhập mỗi thợ vào phần mềm bảng lương với thông tin cá nhân và khấu trừ W-4',
+       note_en:'Name, SSN, address, date of birth, filing status from W-4',
+       note_vn:'Tên, SSN, địa chỉ, ngày sinh, tình trạng khai thuế từ W-4',
+       tag:null},
+      {en:'Set up direct deposit for each technician',
+       vn:'Thiết lập chuyển khoản trực tiếp cho mỗi thợ',
+       note_en:'Bank name, routing number, account number. Techs receive pay 1–2 days after payroll runs.',
+       note_vn:'Tên ngân hàng, mã định tuyến, số tài khoản. Thợ nhận lương 1–2 ngày sau khi chạy bảng lương.',
+       tag:null},
+      {en:'Create or update employment records for each tech',
+       vn:'Tạo hoặc cập nhật hồ sơ nhân viên cho mỗi thợ',
+       note_en:'Include commission %, start date, schedule, and at-will employment terms',
+       note_vn:'Bao gồm % hoa hồng, ngày bắt đầu, lịch làm việc và điều khoản làm việc tùy ý',
+       tag:null},
+    ]
+  },
+  {
+    id:'phase-5',
+    steps:[
+      {en:'Review and confirm commission percentages before converting',
+       vn:'Xem xét và xác nhận phần trăm hoa hồng trước khi chuyển đổi',
+       note_en:'A 60% split that worked as 1099 may affect salon profitability as W-2 because employer payroll taxes are now added on top. Run the cost calculator to confirm your margins still work.',
+       note_vn:'Chia 60% hoạt động tốt khi 1099 có thể ảnh hưởng đến lợi nhuận tiệm khi W-2 vì thuế lương chủ được thêm vào. Chạy máy tính chi phí để xác nhận biên lợi nhuận của bạn vẫn hoạt động.',
+       tag:'key'},
+      {en:'Set up your commission tracking method',
+       vn:'Thiết lập phương pháp theo dõi hoa hồng',
+       note_en:'Track weekly service revenue per tech. Their gross wages = revenue × commission %. Use a spreadsheet or Gusto custom pay.',
+       note_vn:'Theo dõi doanh thu dịch vụ hàng tuần mỗi thợ. Lương gộp = doanh thu × % hoa hồng.',
+       tag:null},
+      {en:'Run a test payroll with one or two techs — verify the math',
+       vn:'Chạy thử bảng lương với một hoặc hai thợ — xác minh con số',
+       note_en:'Check gross wages, withholding amounts, and employer FICA before going live',
+       note_vn:'Kiểm tra lương gộp, số tiền khấu trừ và FICA chủ trước khi triển khai',
+       tag:'key'},
+      {en:'Confirm tax withholding looks correct for each tech\'s situation',
+       vn:'Xác nhận khấu trừ thuế trông đúng cho tình huống của mỗi thợ',
+       note_en:'Compare expected withholding to our employee calculator estimate. Minor differences are normal.',
+       note_vn:'So sánh khấu trừ dự kiến với ước tính máy tính nhân viên. Sự khác biệt nhỏ là bình thường.',
+       tag:null},
+      {en:'Run your first official W-2 payroll — congratulations! 🎉',
+       vn:'Chạy bảng lương W-2 chính thức đầu tiên — chúc mừng! 🎉',
+       note_en:'Your techs receive their first W-2 paychecks. Make sure they know what to expect.',
+       note_vn:'Thợ của bạn nhận séc lương W-2 đầu tiên. Đảm bảo họ biết điều gì sẽ xảy ra.',
+       tag:'key'},
+    ]
+  },
+  {
+    id:'phase-6',
+    steps:[
+      {en:'Deposit federal payroll taxes on time every pay period',
+       vn:'Nộp thuế lương liên bang đúng hạn mỗi kỳ lương',
+       note_en:'Late deposits trigger immediate IRS penalties. Gusto deposits these automatically.',
+       note_vn:'Nộp trễ sẽ bị phạt IRS ngay lập tức. Gusto tự động nộp khoản này.',
+       tag:'legal'},
+      {en:'File Form 941 quarterly (federal payroll tax return)',
+       vn:'Khai Mẫu 941 hàng quý (khai thuế lương liên bang)',
+       note_en:'Due: April 30, July 31, October 31, January 31. Gusto files automatically.',
+       note_vn:'Đến hạn: 30/4, 31/7, 31/10, 31/1. Gusto khai tự động.',
+       tag:'legal'},
+      {en:'File Form 940 annually (FUTA federal unemployment tax)',
+       vn:'Khai Mẫu 940 hàng năm (thuế thất nghiệp liên bang FUTA)',
+       note_en:'Due January 31 each year. Gusto handles automatically.',
+       note_vn:'Đến hạn ngày 31/1 hàng năm. Gusto xử lý tự động.',
+       tag:'legal'},
+      {en:'Distribute W-2 forms to all employees by January 31',
+       vn:'Phân phát mẫu W-2 cho tất cả nhân viên trước ngày 31/1',
+       note_en:'Also file copies with the IRS and Social Security Administration. Gusto does this automatically.',
+       note_vn:'Cũng nộp bản sao cho IRS và Cơ quan An Sinh Xã Hội. Gusto làm tự động.',
+       tag:'legal'},
+      {en:'Maintain all payroll records for at least 4 years',
+       vn:'Lưu giữ tất cả hồ sơ bảng lương ít nhất 4 năm',
+       note_en:'IRS requires payroll records kept for at least 4 years. Keep W-4s, I-9s, pay stubs, and tax filings.',
+       note_vn:'IRS yêu cầu lưu hồ sơ bảng lương ít nhất 4 năm. Lưu W-4, I-9, phiếu lương và khai thuế.',
+       tag:'legal'},
+    ]
+  }
+];
+
+// ── BUILD CHECKLIST ────────────────────────────────
+let state = {};
+let globalStep = 0;
+
+function buildChecklist(){
+  try { state = JSON.parse(localStorage.getItem('nail-blueprint')||'{}'); } catch(e){}
+  
+  phases.forEach(phase => {
+    const container = document.getElementById('steps-' + phase.id);
+    if(!container) return;
+    
+    phase.steps.forEach(step => {
+      globalStep++;
+      const sid = 's' + globalStep;
+      const done = state[sid] || false;
+      
+      // Tag HTML
+      let tagHtml = '';
+      if(step.tag === 'vcsp') tagHtml = '<span class="step-tag tag-vcsp">VCSP</span> ';
+      if(step.tag === 'talk') tagHtml = '<span class="step-tag tag-talk">⭐ Staff Talk</span> ';
+      if(step.tag === 'legal') tagHtml = '<span class="step-tag tag-legal">📋 Required</span> ';
+      if(step.tag === 'key') tagHtml = '<span class="step-tag tag-key">🔑 Key Step</span> ';
+      
+      const div = document.createElement('div');
+      div.className = 'step' + (done ? ' done' : '');
+      div.id = sid;
+      div.onclick = () => toggle(sid);
+      div.innerHTML = `
+        <div class="step-check"><div class="chk">${done ? '✓' : ''}</div></div>
+        <div class="step-num">${globalStep}</div>
+        <div class="step-body">
+          ${tagHtml}
+          <div class="step-title ei">${step.en}</div>
+          <div class="step-title vi">${step.vn}</div>
+          ${step.note_en ? `<div class="step-note ei">💡 ${step.note_en}</div>` : ''}
+          ${step.note_vn ? `<div class="step-note vi">💡 ${step.note_vn}</div>` : ''}
+        </div>`;
+      container.appendChild(div);
+    });
+  });
+  updateProgress();
+}
+
+function toggle(sid){
+  state[sid] = !state[sid];
+  const el = document.getElementById(sid);
+  el.classList.toggle('done', state[sid]);
+  el.querySelector('.chk').textContent = state[sid] ? '✓' : '';
+  try { localStorage.setItem('nail-blueprint', JSON.stringify(state)); } catch(e){}
+  updateProgress();
+}
+
+function updateProgress(){
+  const total = globalStep;
+  const done = Object.values(state).filter(Boolean).length;
+  const pct = total > 0 ? (done/total*100) : 0;
+  document.getElementById('prog-bar').style.width = pct + '%';
+  const isVn = document.body.classList.contains('vn');
+  document.getElementById('prog-label').textContent = isVn
+    ? `${done} / ${total} hoàn thành`
+    : `${done} / ${total} completed`;
+  // Show summary when all done
+  const summary = document.getElementById('summary');
+  if(summary) summary.style.display = done === total && total > 0 ? 'block' : 'none';
+}
+
+function resetAll(){
+  if(!confirm('Reset all checkboxes? / Đặt lại tất cả ô kiểm tra?')) return;
+  state = {};
+  try { localStorage.removeItem('nail-blueprint'); } catch(e){}
+  document.querySelectorAll('.step').forEach(el => {
+    el.classList.remove('done');
+    el.querySelector('.chk').textContent = '';
+  });
+  updateProgress();
+}
+
+// ── INIT ──────────────────────────────────────────
+buildChecklist();
+</script>
+</body>
+</html>
